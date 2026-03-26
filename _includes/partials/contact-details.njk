@@ -1,0 +1,33 @@
+<section class="o-section u-bg-cream">
+  <div class="o-container o-container--lg">
+    <div class="o-grid o-grid--3">
+
+      <div class="c-feature">
+        <div class="c-feature__icon" aria-hidden="true">📧</div>
+        <h3 class="c-feature__title">Email</h3>
+        <p class="c-feature__text">
+          <a href="mailto:{{ metadata.contact.email }}">{{ metadata.contact.email }}</a>
+        </p>
+      </div>
+
+      <div class="c-feature">
+        <div class="c-feature__icon" aria-hidden="true">📞</div>
+        <h3 class="c-feature__title">Phone</h3>
+        <p class="c-feature__text">
+          <a href="tel:{{ metadata.contact.phone }}">{{ metadata.contact.phone }}</a><br>
+          <small>{{ metadata.contact.phoneHours }}</small>
+        </p>
+      </div>
+
+      <div class="c-feature">
+        <div class="c-feature__icon" aria-hidden="true">🚨</div>
+        <h3 class="c-feature__title">Emergency</h3>
+        <p class="c-feature__text">
+          If you see something dangerous on the railway, call <strong>999</strong> immediately or the
+          BTP non-emergency line on <a href="tel:08001405110">0800 40 50 40</a>.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>

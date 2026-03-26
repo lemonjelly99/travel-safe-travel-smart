@@ -1,0 +1,56 @@
+---
+title: News & Updates
+description: "Keep up to date with community safety activity, partnership news and events across the network."
+kicker: Latest
+lastUpdated: 2026-03-26
+layout: layouts/page-full.njk
+eleventyNavigation:
+  key: News & Updates
+  order: 4
+---
+
+{% from "macros/news.njk" import newsCard, newsList %}
+
+{% set posts = collections.posts | reverse %}
+
+{% if posts.length > 0 %}
+  {% set featured = posts[0] %}
+  {% set remainingPosts = posts | slice(1) %}
+  {% set remainingCount = remainingPosts | length %}
+  {% set showCount = 6 if remainingCount >= 6 else 3 %}
+  {% set nextPosts = remainingPosts | slice(0, showCount) %}
+  {% set restPosts = remainingPosts | slice(showCount) %}
+
+<section class="o-section">
+  <div class="o-container">
+    {# ---- Featured Article ---- #}
+    {{ newsCard(featured, true) }}
+    {# ---- Next 3 or 6 ---- #}
+    {% set cardLimit = 6 if posts.length > 7 else 3 %}
+      <div class="o-grid o-grid--3 u-mt-6">
+        {%- for post in posts %}
+          {%- if loop.index0 > 0 and loop.index0 <= cardLimit %}
+            {{ newsCard(post) }}
+          {%- endif %}
+        {%- endfor %}
+      </div>
+  </div>
+</section>
+
+
+{# ---- Remaining as list ---- #}
+{% if posts.length > (cardLimit + 1) %}
+<article class="o-section u-bg-cream">
+  <div class="o-container o-container--md">
+    <ul class="c-news-list">
+      {%- for post in posts %}
+        {%- if loop.index0 > cardLimit %}
+          {{ newsList(post) }}
+        {%- endif %}
+      {%- endfor %}
+    </ul>
+  </div>
+</article>
+{% endif %}
+
+{% endif %}

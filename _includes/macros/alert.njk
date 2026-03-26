@@ -1,0 +1,31 @@
+{# ==========================================================================
+   MACRO: Alert
+   Usage:
+     {% from "macros/alert.njk" import alert %}
+
+     {{ alert({
+       type:    "info",
+       title:   "Optional title",
+       message: "This is the alert body.",
+       dismissible: true
+     }) }}
+
+   Types: info, success, warning, error
+   ========================================================================== #}
+
+{% macro alert(props) %}
+{%- set type = props.type | default("info") -%}
+<div class="c-alert c-alert--{{ type }}" role="{% if type == 'error' %}alert{% else %}status{% endif %}">
+  <div class="c-alert__body">
+    {% if props.title %}
+    <div class="c-alert__title">{{ props.title }}</div>
+    {% endif %}
+    <div>{{ props.message }}</div>
+  </div>
+  {% if props.dismissible %}
+  <button class="c-alert__dismiss" aria-label="Dismiss this message" onclick="this.closest('.c-alert').remove()">
+    &times;
+  </button>
+  {% endif %}
+</div>
+{% endmacro %}

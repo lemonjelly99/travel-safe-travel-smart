@@ -1,0 +1,169 @@
+/* ==========================================================================
+   OBJECTS
+   Class-based selectors defining undecorated design patterns.
+   These are structural, cosmetic-free layout primitives.
+   ========================================================================== */
+
+/* ---- Container ---- */
+.o-container {
+  width: 100%;
+  max-width: var(--container-xl);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.o-container--sm  { max-width: var(--container-sm); }
+.o-container--md  { max-width: var(--container-md); }
+.o-container--lg  { max-width: var(--container-lg); }
+.o-container--max { max-width: var(--container-max); }
+.o-container--full { max-width: none; }
+
+/* ---- Grid ---- */
+.o-grid {
+  display: grid;
+  gap: var(--gutter);
+}
+
+.o-grid--2   { grid-template-columns: repeat(2, 1fr); }
+.o-grid--3   { grid-template-columns: repeat(3, 1fr); }
+.o-grid--4   { grid-template-columns: repeat(4, 1fr); }
+
+/* Auto-fit responsive grid */
+.o-grid--auto {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+}
+
+.o-grid--auto-sm {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+}
+
+.o-grid--auto-lg {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+}
+
+@media (max-width: 48rem) {
+  .o-grid--2,
+  .o-grid--3,
+  .o-grid--4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 48rem) and (max-width: 64rem) {
+  .o-grid--3,
+  .o-grid--4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ---- Flex / Cluster ---- */
+.o-flex {
+  display: flex;
+  gap: var(--gutter);
+}
+
+.o-flex--wrap     { flex-wrap: wrap; }
+.o-flex--center   { align-items: center; justify-content: center; }
+.o-flex--between  { justify-content: space-between; }
+.o-flex--col      { flex-direction: column; }
+
+/* ---- Cluster (wrapping horizontal items) ---- */
+.o-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.o-cluster--lg { gap: var(--space-6); }
+
+/* ---- Stack (vertical rhythm) ---- */
+.o-stack > * + * {
+  margin-block-start: var(--space-4);
+}
+
+.o-stack--sm > * + * { margin-block-start: var(--space-2); }
+.o-stack--lg > * + * { margin-block-start: var(--space-8); }
+.o-stack--xl > * + * { margin-block-start: var(--space-12); }
+
+/* ---- Sidebar Layout ---- */
+.o-sidebar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gutter);
+}
+
+.o-sidebar > :first-child {
+  flex-basis: 20rem;
+  flex-grow: 1;
+}
+
+.o-sidebar > :last-child {
+  flex-basis: 0;
+  flex-grow: 999;
+  min-inline-size: 50%;
+}
+
+/* ---- Section spacing ---- */
+.o-section {
+  padding-block: var(--fluid-space-lg);
+}
+
+.o-section--sm  { padding-block: var(--fluid-space-sm); }
+.o-section--lg  { padding-block: var(--fluid-space-xl); }
+
+/* ---- Visually Hidden (accessible hide) ---- */
+.o-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.o-sr-only:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* ---- Cover (full-viewport hero pattern) ---- */
+.o-cover {
+  display: flex;
+  flex-direction: column;
+  min-height: 50vh;
+  padding: var(--fluid-space-lg);
+}
+
+.o-cover--full { min-height: 100vh; }
+
+.o-cover__inner {
+  margin-block: auto;
+}
+
+/* ---- Frame (aspect-ratio box) ---- */
+.o-frame {
+  position: relative;
+  overflow: hidden;
+}
+
+.o-frame--16-9  { aspect-ratio: 16 / 9; }
+.o-frame--4-3   { aspect-ratio: 4 / 3; }
+.o-frame--1-1   { aspect-ratio: 1 / 1; }
+.o-frame--3-2   { aspect-ratio: 3 / 2; }
+
+.o-frame > img,
+.o-frame > video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

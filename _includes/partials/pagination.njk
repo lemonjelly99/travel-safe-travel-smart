@@ -1,0 +1,44 @@
+{# ==========================================================================
+   PARTIAL: Pagination
+   For Eleventy's built-in pagination.
+
+   Usage (in a paginated template):
+     {% include "partials/pagination.njk" %}
+
+   Expects `pagination` object from Eleventy with:
+     pagination.href.previous, pagination.href.next,
+     pagination.pages, pagination.pageNumber
+   ========================================================================== #}
+
+{% if pagination.pages.length > 1 %}
+<nav class="c-pagination" aria-label="Pagination">
+  {# Previous #}
+  {% if pagination.href.previous %}
+  <a class="c-pagination__link" href="{{ pagination.href.previous }}" aria-label="Previous page">
+    &laquo; Prev
+  </a>
+  {% endif %}
+
+  {# Page numbers #}
+  {%- for pageEntry in pagination.pages %}
+  {% set pageIndex = loop.index0 %}
+  {% set pageUrl = pagination.hrefs[pageIndex] %}
+  {% if pageIndex == pagination.pageNumber %}
+  <span class="c-pagination__current" aria-current="page" aria-label="Page {{ pageIndex + 1 }}, current page">
+    {{ pageIndex + 1 }}
+  </span>
+  {% else %}
+  <a class="c-pagination__link" href="{{ pageUrl }}" aria-label="Page {{ pageIndex + 1 }}">
+    {{ pageIndex + 1 }}
+  </a>
+  {% endif %}
+  {%- endfor %}
+
+  {# Next #}
+  {% if pagination.href.next %}
+  <a class="c-pagination__link" href="{{ pagination.href.next }}" aria-label="Next page">
+    Next &raquo;
+  </a>
+  {% endif %}
+</nav>
+{% endif %}

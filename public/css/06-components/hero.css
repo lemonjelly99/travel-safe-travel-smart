@@ -1,0 +1,110 @@
+/* ==========================================================================
+   COMPONENT: Hero
+   ========================================================================== */
+
+.c-hero {
+  position: relative;
+  background: var(--color-navy);
+  color: var(--color-white);
+  overflow: hidden;
+}
+
+.c-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 80%, rgba(232, 189, 72, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(10, 74, 114, 0.3) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Subtle diagonal stripe texture */
+.c-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 40px,
+    rgba(255, 255, 255, 0.015) 40px,
+    rgba(255, 255, 255, 0.015) 80px
+  );
+  pointer-events: none;
+}
+
+.c-hero__inner {
+  position: relative;
+  z-index: 1;
+  padding-block: var(--fluid-space-lg);
+}
+
+.c-hero__kicker {
+  display: inline-block;
+  font-family: var(--font-family-body);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-caps);
+  text-transform: uppercase;
+  color: var(--color-yellow);
+  margin-block-end: var(--space-4);
+  padding-block-end: var(--space-2);
+  border-block-end: 2px solid var(--color-yellow);
+}
+
+.c-hero__title {
+  font-size: var(--fluid-2xl);
+  color: var(--color-white);
+  max-width: 20ch;
+  margin-block-end: var(--space-6);
+}
+
+.c-hero__summary {
+  font-size: var(--fluid-base);
+  line-height: var(--line-height-relaxed);
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 55ch;
+  margin-block-end: var(--space-8);
+}
+
+.c-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+/* ---- Hero with image ---- */
+.c-hero--split {
+  display: grid;
+  align-items: center;
+}
+
+@media (min-width: 64rem) {
+  .c-hero--split {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .c-hero--split .c-hero__inner {
+    padding-inline-end: var(--space-12);
+  }
+}
+
+.c-hero__media {
+  position: relative;
+}
+
+.c-hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---- Hero (compact) ---- */
+.c-hero--compact .c-hero__inner {
+  padding-block: var(--fluid-space-md);
+}
+
+.c-hero--compact .c-hero__title {
+  font-size: var(--fluid-xl);
+}

@@ -1,0 +1,60 @@
+---
+title: Page Not Found
+permalink: 404.html
+eleventyExcludeFromCollections: true
+layout: layouts/base.njk
+---
+
+<section class="o-cover" style="background: var(--color-cream); text-align: center;">
+  <div class="o-cover__inner o-container o-container--sm">
+
+    {# ---- Illustration ---- #}
+    <div aria-hidden="true" style="font-size: 5rem; line-height: 1; margin-block-end: var(--space-6);">
+      🚧
+    </div>
+
+    <h1 style="font-size: var(--fluid-xl); margin-block-end: var(--space-4);">
+      Page not found
+    </h1>
+
+    <p style="font-size: var(--text-md); color: var(--color-text-muted); max-width: 44ch; margin-inline: auto; margin-block-end: var(--space-8);">
+      Sorry, we couldn't find the page you were looking for. It may have been moved, removed, or the address may have been typed incorrectly.
+    </p>
+
+    <div class="o-cluster" style="justify-content: center;">
+      <a class="c-btn c-btn--primary" href="index.njk">Go to homepage</a>
+      <a class="c-btn c-btn--outline" href="/contact/">Contact us</a>
+    </div>
+
+    {# ---- Helpful Links ---- #}
+    {# <div style="margin-block-start: var(--space-12); padding-block-start: var(--space-8); border-block-start: var(--border-width) solid var(--color-border);">
+      <p style="font-size: var(--text-sm); color: var(--color-text-muted); margin-block-end: var(--space-4);">
+        You might find what you're looking for here:
+      </p>
+      <nav aria-label="Helpful links">
+        <ul class="o-cluster" style="justify-content: center; list-style: none; align-items: baseline;">
+          {%- set navItems = collections.all | eleventyNavigation -%}
+          {%- for item in navItems %}
+          <li>
+            <a href="{{ item.url }}">{{ item.label or item.title }}</a>
+          </li>
+          {%- endfor %}
+        </ul>
+      </nav>
+    </div> #}
+
+  </div>
+</section>
+
+<!--
+
+Read more: https://www.11ty.dev/docs/quicktips/not-found/
+
+This is compatible with:
+
+- GitHub Pages: https://help.github.com/articles/creating-a-custom-404-page-for-your-github-pages-site/
+- GitLab Pages: https://docs.gitlab.com/ee/user/project/pages/introduction.html#custom-error-codes-pages
+- Netlify: https://www.netlify.com/docs/redirects/#custom-404
+- Cloudflare Pages: https://developers.cloudflare.com/pages/platform/serving-pages/#not-found-behavior
+- Vercel: https://vercel.com/guides/custom-404-page#static-site-generator-ssg
+-->

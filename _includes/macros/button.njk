@@ -1,0 +1,29 @@
+{# ==========================================================================
+   MACRO: Button
+   Renders a button or link styled as a button.
+
+   Usage:
+     {% from "macros/button.njk" import button %}
+
+     {{ button({ label: "Get in touch", url: "/contact/", style: "primary" }) }}
+     {{ button({ label: "Submit", type: "submit", style: "secondary" }) }}
+   ========================================================================== #}
+
+{% macro button(props) %}
+{%- set style = props.style | default("primary") -%}
+{%- set size  = props.size | default("") -%}
+{%- set cls   = "c-btn c-btn--" + style -%}
+{%- if size %}{% set cls = cls + " c-btn--" + size %}{% endif -%}
+{%- if props.full %}{% set cls = cls + " c-btn--full" %}{% endif -%}
+{%- if props.class %}{% set cls = cls + " " + props.class %}{% endif -%}
+
+{% if props.url %}
+<a class="{{ cls }}" href="{{ props.url }}"{% if props.external %} target="_blank" rel="noopener noreferrer"{% endif %}>
+  {{ props.label }}
+</a>
+{% else %}
+<button class="{{ cls }}" type="{{ props.type | default('button') }}"{% if props.disabled %} disabled{% endif %}>
+  {{ props.label }}
+</button>
+{% endif %}
+{% endmacro %}

@@ -1,0 +1,188 @@
+/* ==========================================================================
+   UTILITIES
+   High-specificity overrides. Use sparingly.
+   ========================================================================== */
+
+/* ---- Display ---- */
+.u-hidden {
+	display: none !important;
+}
+.u-block {
+	display: block !important;
+}
+.u-inline-block {
+	display: inline-block !important;
+}
+.u-flex {
+	display: flex !important;
+}
+.u-grid {
+	display: grid !important;
+}
+
+/* ---- Text Alignment ---- */
+.u-text-left {
+	text-align: left !important;
+}
+.u-text-center {
+	text-align: center !important;
+}
+.u-text-right {
+	text-align: right !important;
+}
+
+/* ---- Text Size ---- */
+.u-text-xs {
+	font-size: var(--text-xs) !important;
+}
+.u-text-sm {
+	font-size: var(--text-sm) !important;
+}
+.u-text-base {
+	font-size: var(--text-base) !important;
+}
+.u-text-md {
+	font-size: var(--text-md) !important;
+}
+.u-text-lg {
+	font-size: var(--text-lg) !important;
+}
+
+/* ---- Font Weight ---- */
+.u-font-regular {
+	font-weight: var(--font-weight-regular) !important;
+}
+.u-font-medium {
+	font-weight: var(--font-weight-medium) !important;
+}
+.u-font-semibold {
+	font-weight: var(--font-weight-semibold) !important;
+}
+.u-font-bold {
+	font-weight: var(--font-weight-bold) !important;
+}
+
+/* ---- Colours ---- */
+.u-color-navy {
+	color: var(--color-navy) !important;
+}
+.u-color-yellow {
+	color: var(--color-yellow) !important;
+}
+.u-color-muted {
+	color: var(--color-text-muted) !important;
+}
+.u-color-white {
+	color: var(--color-white) !important;
+}
+
+.u-bg-navy {
+	background-color: var(--color-navy) !important;
+}
+.u-bg-cream {
+	background-color: var(--color-cream) !important;
+}
+.u-bg-white {
+	background-color: var(--color-white) !important;
+}
+.u-bg-yellow {
+	background-color: var(--color-yellow) !important;
+}
+
+/* ---- Spacing (margin) ---- */
+.u-mt-0 {
+	margin-block-start: 0 !important;
+}
+.u-mt-4 {
+	margin-block-start: var(--space-4) !important;
+}
+.u-mt-6 {
+	margin-block-start: var(--space-6) !important;
+}
+.u-mt-8 {
+	margin-block-start: var(--space-8) !important;
+}
+.u-mt-12 {
+	margin-block-start: var(--space-12) !important;
+}
+
+.u-mb-0 {
+	margin-block-end: 0 !important;
+}
+.u-mb-4 {
+	margin-block-end: var(--space-4) !important;
+}
+.u-mb-8 {
+	margin-block-end: var(--space-8) !important;
+}
+.u-mb-12 {
+	margin-block-end: var(--space-12) !important;
+}
+
+/* ---- Spacing (padding) ---- */
+.u-pt-0 {
+	padding-block-start: 0 !important;
+}
+.u-pb-0 {
+	padding-block-end: 0 !important;
+}
+.u-p-4 {
+	padding: var(--space-4) !important;
+}
+.u-p-6 {
+	padding: var(--space-6) !important;
+}
+.u-p-8 {
+	padding: var(--space-8) !important;
+}
+
+/* ---- Width ---- */
+.u-w-full {
+	width: 100% !important;
+}
+.u-max-w-prose {
+	max-width: 68ch !important;
+}
+
+/* ---- Border ---- */
+.u-rounded-md {
+	border-radius: var(--radius-md) !important;
+}
+.u-rounded-lg {
+	border-radius: var(--radius-lg) !important;
+}
+.u-rounded-full {
+	border-radius: var(--radius-full) !important;
+}
+
+/* ---- Responsive visibility ---- */
+@media (max-width: 48rem) {
+	.u-hide-mobile {
+		display: none !important;
+	}
+}
+
+@media (min-width: 48.01rem) {
+	.u-hide-tablet {
+		display: none !important;
+	}
+}
+
+@media (min-width: 64.01rem) {
+	.u-hide-desktop {
+		display: none !important;
+	}
+}
+
+@media (max-width: 64rem) {
+	.u-show-desktop {
+		display: none !important;
+	}
+}
+
+/* ---- Print ---- */
+@media print {
+	.u-no-print {
+		display: none !important;
+	}
+}

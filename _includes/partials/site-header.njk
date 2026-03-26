@@ -1,0 +1,74 @@
+{# {% if metadata.emergencyContact %}
+    <div class="alert alert--emergency">{{ metadata.emergencyContact.message }}</div>
+  {% endif %} #}
+
+{# ==========================================================================
+   PARTIAL: Site Header
+   ========================================================================== #}
+<header class="c-site-header">
+  <div class="o-container c-site-header__inner">
+
+    <a class="c-site-header__logo" href="/" aria-label="Travel Safe Travel Smart — Home">
+      <img
+        eleventy:ignore 
+        class="c-site-header__logo-img"
+        src="/img/logo.jpeg"
+        alt=""
+        width="48"
+        height="48"
+      >
+      <span class="c-site-header__logo-text">
+        Travel Safe
+        <span>Travel Smart</span>
+      </span>
+    </a>
+
+    <nav class="c-nav" aria-label="Main navigation">
+      <button
+        class="c-nav__toggle"
+        data-nav-toggle
+        aria-expanded="false"
+        aria-controls="main-nav"
+      >
+        <svg class="c-nav__toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+        <span>Menu</span>
+      </button>
+
+
+      {#- Read more about `eleventy-navigation` at https://www.11ty.dev/docs/plugins/navigation/ #}
+      {# <nav>
+				<h2 class="visually-hidden">Top level navigation menu</h2>
+				<ul class="nav">
+				{%- for entry in collections.all | eleventyNavigation %}
+					<li class="nav-item"><a href="{{ entry.url }}"{% if entry.url == page.url %} aria-current="page"{% endif %}>{{ entry.title }}</a></li>
+				{%- endfor %}
+				</ul>
+			</nav> #}
+      <ul class="c-nav__list" id="main-nav" data-nav-list data-open="false">
+        {# {%- set navItems = [
+          { url: "/",            label: "Home" },
+          { url: "/who-we-are/", label: "Who We Are" },
+          { url: "/what-we-do/", label: "What We Do" },
+          { url: "/contact/",    label: "Contact Us" },
+          { url: "/news/",       label: "News" },
+          { url: "/resources/",  label: "Resources" }
+        ] -%} #}
+        {%- set navItems = collections.all | eleventyNavigation -%}
+        {%- for item in navItems %}
+        <li>
+          <a
+            class="c-nav__link"
+            href="{{ item.url }}"
+            {% if page and page.url == item.url %}aria-current="page"{% endif %}
+          >{{ item.label or item.title }}</a>
+        </li>
+        {%- endfor %}
+      </ul>
+    </nav>
+
+  </div>
+</header>

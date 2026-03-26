@@ -1,0 +1,56 @@
+---
+layout: layouts/base.njk
+---
+{# ==========================================================================
+   LAYOUT: Content Page
+   Extends base.njk. Used for plain markdown content pages like
+   Privacy Policy, Accessibility Statement, Cookies, etc.
+
+   Front matter options:
+     title:       Page title (required)
+     description: Meta description
+     kicker:      Small label above the title in the hero
+     lastUpdated: Date string shown below the title
+     toc:         true | false — show a table of contents (future)
+   ========================================================================== #}
+
+
+{# ---- Breadcrumb ---- #}
+
+{% set breadcrumbs = [
+  { label: "Home", url: "/" },
+  { label: title }
+] %}
+{% include "partials/breadcrumb.njk" %}
+
+
+{# ---- Hero ---- #}
+
+{% set heroData = {
+  kicker: kicker | default(null),
+  title:  title,
+  summary: description | default(null),
+  compact: true,
+  primaryBtn: primaryBtn | default(null),
+  secondaryBtn: secondaryBtn | default(null)
+} %}
+{% include "partials/hero.njk" %}
+
+
+{# ---- Content ---- #}
+
+<article class="o-section">
+  <div class="o-container o-container--md">
+
+    {% if lastUpdated %}
+    <p class="u-text-sm u-color-muted u-mb-8">
+      Last updated: <time>{{ lastUpdated | readableDate("dd LLLL yyyy") }}</time>
+    </p>
+    {% endif %}
+
+    <div class="c-prose">
+      {{ content | safe }}
+    </div>
+
+  </div>
+</article>

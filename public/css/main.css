@@ -1,0 +1,46 @@
+/* ==========================================================================
+   TRAVEL SAFE TRAVEL SMART — Design System
+   ITCSS Architecture (no preprocessor required)
+   ==========================================================================
+   Layers (low → high specificity):
+
+   1. SETTINGS    — Global variables, design tokens
+   2. TOOLS       — Fluid helpers, calculations
+   3. GENERIC     — Reset, normalize, box-sizing
+   4. ELEMENTS    — Bare HTML element styles
+   5. OBJECTS     — Structural layout patterns (OOCSS)
+   6. COMPONENTS  — Designed UI components (BEM)
+   7. UTILITIES   — Helper overrides (!important)
+   ========================================================================== */
+
+/* 1. Settings */
+@import "01-settings/settings.css";
+
+/* 2. Tools */
+@import "02-tools/tools.css";
+
+/* 3. Generic */
+@import "03-generic/generic.css";
+
+/* 4. Elements */
+@import "04-elements/elements.css";
+
+/* 5. Objects */
+@import "05-objects/objects.css";
+
+/* 6. Components */
+@import "06-components/skip-link.css";
+@import "06-components/site-header.css";
+@import "06-components/hero.css";
+@import "06-components/button.css";
+@import "06-components/card.css";
+@import "06-components/feature.css";
+@import "06-components/form.css";
+@import "06-components/csm-finder.css";
+@import "06-components/misc.css";
+@import "06-components/news.css";
+@import "06-components/alert.css";
+@import "06-components/site-footer.css";
+
+/* 7. Utilities */
+@import "07-utilities/utilities.css";

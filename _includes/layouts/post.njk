@@ -1,0 +1,122 @@
+---
+layout: layouts/base.njk
+---
+
+{# Only include the syntax highlighter CSS on blog posts, included with the CSS per-page bundle #}
+<style>{% include "node_modules/prismjs/themes/prism-okaidia.css" %}</style>
+<style>{% include "css/prism-diff.css" %}</style>
+
+{% set kicker = post.data.category | capitalize if post.data.category else "News" %}
+
+{# ---- Breadcrumb ---- #}
+
+{% set breadcrumbs = [
+  { label: "Home", url: "/" },
+  { label: "News", url: "/news/" },
+  { label: title }
+] %}
+{% include "partials/breadcrumb.njk" %}
+
+
+{# ---- Hero ---- #}
+
+{% set heroData = {
+  kicker: kicker | default(null),
+  title:  title,
+  summary: description | default(null),
+  compact: true,
+  primaryBtn: primaryBtn | default(null),
+  secondaryBtn: secondaryBtn | default(null)
+} %}
+{% include "partials/hero.njk" %}
+
+
+{# ---- Look up author ---- #}
+
+{# {%- set author = null %}
+{%- for person in people %}
+  {%- if person.id == article.author %}
+    {%- set author = person %}
+  {%- endif %}
+{%- endfor %} #}
+
+
+
+{# ---- Article ---- #}
+
+<article class="o-section">
+  <div class="o-container o-container--md">
+
+    {# ---- Meta ---- #}
+    <div class="c-article-meta u-mb-8">
+      {% if authorData %}
+        <a class="c-article-meta__author" href="/team/{{ authorData.id }}/">
+          {% if authorData.photo %}
+          <img class="c-article-meta__author-avatar" src="{{ authorData.photo }}" alt="" loading="lazy">
+          {% else %}
+          <span
+            class="c-csm-card__avatar c-csm-card__avatar--placeholder"
+            style="width:1.75rem;height:1.75rem;font-size:0.625rem;display:inline-flex"
+            aria-hidden="true"
+          >{{ authorData.name | truncate(2, true, "") | upper }}</span>
+          {% endif %}
+          {{ authorData.name }}
+        </a>
+        <span class="c-article-meta__divider">&middot;</span>
+      {% endif %}
+      
+      <span class="c-tag c-tag--{% if category %}primary{% else %}default{% endif %}">{{ category | upper }}</span>
+      <span class="c-article-meta__divider">&middot;</span>
+      
+      <time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time>
+
+      {% if tags %}
+      <span class="c-article-meta__divider">&middot;</span>
+      
+
+      {%- for tag in tags | filterTagList | sortAlphabetically | arrayLowercase %}
+      {%- set tagUrl %}/tags/{{ tag | slugify }}/{% endset %}
+      <a href="{{ tagUrl }}" class="c-tag c-tag--default">{{ tag }}</a>
+      {%- endfor %}
+      {% endif %}
+
+    </div>
+
+      
+
+    {# ---- Body ---- #}
+    <div class="c-prose">
+      {# <p class="u-text-lg">{{ article.excerpt }}</p> #}
+      {{ content | safe }}      
+    </div>
+
+
+
+
+  
+
+    {%- if collections.posts %}
+    {%- set previousPost = collections.posts | getPreviousCollectionItem %}
+    {%- set nextPost = collections.posts | getNextCollectionItem %}
+    {%- if nextPost or previousPost %}
+    <ul class="o-cluster u-mt-12" style="justify-content: space-between;">
+      <div>
+      {%- if previousPost %}&larr; Previous<br> <a href="{{ previousPost.url }}">{{ previousPost.data.title }}</a>{% endif %}
+      </div>
+      <div style="text-align: right;">
+      {%- if nextPost %}Next &rarr;<br><a href="{{ nextPost.url }}">{{ nextPost.data.title }}</a>{% endif %}
+      </div>
+    </ul>
+    {%- endif %}
+    {%- endif %}
+
+
+      {# ---- Back link ---- #}
+    <div class="u-mt-12 u-text-center">
+      <a class="c-btn c-btn--outline" href="/news/">Back to all news</a>
+    </div>
+
+
+
+  </div>
+</article>

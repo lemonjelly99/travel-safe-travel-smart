@@ -1,0 +1,60 @@
+{# ==========================================================================
+   MACRO: Card
+   Renders a content card (news, resource, feature, etc.)
+
+   Usage:
+     {% from "macros/card.njk" import card %}
+
+     {{ card({
+       url:     "/news/my-article/",
+       kicker:  "News",
+       title:   "Article Title",
+       text:    "A brief excerpt or description.",
+       image:   "/assets/img/news/article.jpg",
+       imageAlt: "Students attending a rail safety session",
+       footer:  "15 Nov 2025",
+       featured: false,
+       horizontal: false,
+       tags: ["safety", "community"]
+     }) }}
+   ========================================================================== #}
+
+{% macro card(props) %}
+{%- set tag = "a" if props.url else "div" -%}
+{%- set classes = "c-card" -%}
+{%- if props.url %}{% set classes = classes + " c-card--link" %}{% endif -%}
+{%- if props.featured %}{% set classes = classes + " c-card--featured" %}{% endif -%}
+{%- if props.horizontal %}{% set classes = classes + " c-card--horizontal" %}{% endif -%}
+{%- if not props.image %}{% set classes = classes + " c-card--compact" %}{% endif -%}
+<{{ tag }} class="{{ classes }}"{% if props.url %} href="{{ props.url }}"{% endif %}>
+  {% if props.image %}
+  <div class="c-card__media">
+    <img src="{{ props.image }}" alt="{{ props.imageAlt | default('') }}" loading="lazy">
+  </div>
+  {% endif %}
+
+  <div class="c-card__body">
+    {% if props.kicker %}
+    <span class="c-card__kicker">{{ props.kicker }}</span>
+    {% endif %}
+
+    <h3 class="c-card__title">{{ props.title }}</h3>
+
+    {% if props.text %}
+    <p class="c-card__text">{{ props.text }}</p>
+    {% endif %}
+
+    {% if props.tags %}
+    <div class="c-card__tags">
+      {% for tag in props.tags %}
+        <span class="c-tag c-tag--default">{{ tag | lower }}</span>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if props.footer %}
+    <div class="c-card__footer">{{ props.footer }}</div>
+    {% endif %}
+  </div>
+</{{ tag }}>
+{% endmacro %}

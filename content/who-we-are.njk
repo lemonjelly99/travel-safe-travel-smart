@@ -1,0 +1,108 @@
+---
+title: Who we are
+description: "Our Community Safety Managers are the main point of contact for communities, schools and partners across the country."
+kicker: About Us
+lastUpdated: 2026-03-26
+layout: layouts/page-full.njk
+eleventyNavigation:
+  key: Who we are
+  order: 2
+---
+{% from "macros/feature.njk" import feature %}
+
+{# ---- What is a CSM? ---- #}
+
+<section class="o-section">
+
+
+
+  <div class="o-container o-container--lg">
+
+<div class="c-section-header">
+      <span class="c-section-header__kicker">{{ title }}</span>
+      <h2 class="c-section-header__title">What is a Community Safety Manager?</h2>
+      {# <p class="c-section-header__description">Our Community Safety Managers deliver practical support and coordinated safety initiatives at the heart of local communities.</p> #}
+    </div>
+
+    <div class="c-prose">
+
+        <p>A Community Safety Manager works closely with local communities, individuals, partners and organisations to understand safety concerns, coordinate engagement activities and support collaborative solutions.</p>
+        <p>Their role is to support communities, partners and organisations across the rail network with any railway safety concerns, engagement requests or partnership opportunities.</p>
+    
+        <h3>How can your local CSM help you?</h3>
+        <ul>
+          <li>School or youth engagement requests</li>
+          <li>Local safety concerns (trespass, ASB, community impact)</li>
+          <li>Partnership working with councils, BTP, charities or community groups</li>
+          <li>Support with campaigns, events or outreach initiatives</li>
+          <li>Guidance on rail safety messaging, resources and materials</li>
+        </ul>
+
+        <div class="o-stack">
+        <a class="c-btn c-btn--primary" href="/contact/">Get in touch</a>
+        <a class="c-btn c-btn--outline" href="/contact/#csm-finder-heading">Find your local Community Safety Manager</a>
+        </div>
+    </div>
+  </div>
+</section>
+
+{# ---- How We Work ---- #}
+
+<section class="o-section u-bg-cream">
+  <div class="o-container">
+    <div class="c-section-header c-section-header--center">
+      <span class="c-section-header__kicker">Our Approach</span>
+      <h2 class="c-section-header__title">How We Work</h2>
+    </div>
+
+    <div class="o-grid o-grid--3">
+      {{ feature({
+        icon: "👂",
+        title: "Listen",
+        text: "We start by understanding the concerns and priorities of the communities we serve."
+      }) }}
+      {{ feature({
+        icon: "🤝",
+        title: "Collaborate",
+        text: "We bring together partners — schools, police, councils, charities — to develop joined-up solutions."
+      }) }}
+      {{ feature({
+        icon: "📈",
+        title: "Deliver",
+        text: "We implement targeted initiatives and measure their impact to continuously improve safety outcomes."
+      }) }}
+    </div>
+
+  </div>
+</section>
+
+{# ---- Key Partners ---- #}
+
+<section class="o-section">
+  <div class="o-container o-container--lg">
+    <div class="c-section-header">
+      <span class="c-section-header__kicker">Working Together</span>
+      <h2 class="c-section-header__title">Key Partners</h2>
+      <p class="c-section-header__description">
+        We work in partnership with a range of organisations to keep
+        communities safe around the railway.
+      </p>
+    </div>
+
+    <div class="o-cluster o-cluster--lg">
+      <span class="c-tag c-tag--primary">British Transport Police</span>
+      <span class="c-tag c-tag--primary">Network Rail</span>
+      <span class="c-tag c-tag--primary">Local Councils</span>
+      <span class="c-tag c-tag--primary">Schools &amp; Colleges</span>
+      <span class="c-tag c-tag--primary">Youth Services</span>
+      <span class="c-tag c-tag--primary">Community Groups</span>
+      <span class="c-tag c-tag--primary">Charities</span>
+      <span class="c-tag c-tag--primary">Train Operating Companies</span>
+    </div>
+
+  </div>
+</section>
+
+{# ---- CSM Finder ---- #}
+
+{% include "partials/csm-finder.njk" %}

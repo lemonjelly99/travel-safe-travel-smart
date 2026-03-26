@@ -1,0 +1,41 @@
+{# ==========================================================================
+   PARTIAL: Hero
+   Usage:
+     {% set heroData = {
+       kicker: "Travel Safe Travel Smart",
+       title:  "Keeping Communities Safe Across the UK Rail Network",
+       summary: "Working together to reduce risk...",
+       compact: false,
+       primaryBtn: { label: "What We Do", url: "/what-we-do/" },
+       secondaryBtn: { label: "Contact Us", url: "/contact/" }
+     } %}
+     {% include "partials/hero.njk" %}
+   ========================================================================== #}
+<section class="c-hero{% if heroData.compact %} c-hero--compact{% endif %}">
+  <div class="o-container c-hero__inner">
+    {% if heroData.kicker %}
+    <span class="c-hero__kicker">{{ heroData.kicker }}</span>
+    {% endif %}
+
+    <h1 class="c-hero__title">{{ heroData.title }}</h1>
+
+    {% if heroData.summary %}
+    <p class="c-hero__summary">{{ heroData.summary }}</p>
+    {% endif %}
+
+    {% if heroData.primaryBtn or heroData.secondaryBtn %}
+    <div class="c-hero__actions">
+      {% if heroData.primaryBtn %}
+      <a class="c-btn c-btn--primary" href="{{ heroData.primaryBtn.url }}">
+        {{ heroData.primaryBtn.label }}
+      </a>
+      {% endif %}
+      {% if heroData.secondaryBtn %}
+      <a class="c-btn c-btn--outline-inverse" href="{{ heroData.secondaryBtn.url }}">
+        {{ heroData.secondaryBtn.label }}
+      </a>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+</section>

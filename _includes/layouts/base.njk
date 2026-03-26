@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="{{ metadata.language }}">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>{% if title %}{{ title }} — {% endif %}{{ metadata.title }}</title>
+		<meta name="description" content="{{ description or metadata.description }}">
+		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="{{ metadata.title }}">
+
+		{% block head %}{% endblock %}
+
+		{#- Uncomment this if you’d like folks to know that you used Eleventy to build your site!  #}
+		{#- <meta name="generator" content="{{ eleventy.generator }}"> #}
+
+		{#-
+		Plain-text bundles are provided via the `eleventy-plugin-bundle` plugin:
+		1. CSS:
+			* Add to a per-page bundle using `{% css %}{% endcss %}`
+			* Retrieve bundle content using `{% getBundle "css" %}` or `{% getBundleFileUrl "css" %}`
+		2. Or for JavaScript:
+			* Add to a per-page bundle using `{% js %}{% endjs %}`
+			* Retrieve via `{% getBundle "js" %}` or `{% getBundleFileUrl "js" %}`
+		3. Learn more: https://github.com/11ty/eleventy-plugin-bundle
+		#}
+
+		{#- Add CSS to the bundle #}
+		<style>/* This is an arbitrary CSS string added to the bundle */</style>
+
+		{#- Add the contents of a file to the bundle #}
+		{# <style>{% include "css/index.css" %}</style> #}
+
+		{#- Or you can add from node_modules #}
+		{# <style>{% include "node_modules/something.css" %}</style> #}
+
+		{#- Render the CSS bundle using inlined CSS (for the fastest site performance in production) #}
+		<style>{% getBundle "css" %}</style>
+
+		{#- Renders the CSS bundle using a separate file, if you can't set CSP directive style-src: 'unsafe-inline' #}
+		{#- <link rel="stylesheet" href="{% getBundleFileUrl "css" %}"> #}
+
+		{#- Add the heading-anchors web component to the JavaScript bundle #}
+		<script type="module">{% include "node_modules/@zachleat/heading-anchors/heading-anchors.js" %}</script>
+
+
+  	{# ---- Main Stylesheet ---- #}
+  	<link rel="stylesheet" href="/css/main.css">
+
+		{# ---- Google Fonts ---- #}
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link
+			href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Source+Sans+3:wght@400;500;600;700&display=swap"
+			rel="stylesheet"
+		>
+
+		{# ---- Leaflet (only on pages that use the map) ---- #}
+		{% if useMap %}
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+			integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+			crossorigin=""
+		>
+		{% endif %}
+
+		{# ---- Favicon ---- #}
+		{# <link rel="icon" href="/assets/img/favicon.ico" sizes="any"> #}
+		{# <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml"> #}
+
+	</head>
+	<body>
+		{# ---- Skip Link ---- #}
+  	<a class="c-skip-link" id="skip-link" href="#main">Skip to main content</a>
+
+  	{# ---- Site Header ---- #}
+  	{% include "partials/site-header.njk" %}
+
+		{# ---- Main Content ---- #}
+		<main id="main" tabindex="-1">
+			<heading-anchors>
+				{% block content %}{{ content | safe }}{% endblock %}
+			</heading-anchors>
+		</main>
+
+		{# ---- Site Footer ---- #}
+  	{% include "partials/site-footer.njk" %}
+
+		{# ---- Scripts ---- #}
+		{% if useMap %}
+		<script src="/js/leaflet.js"></script>
+		<script src="/js/csm-finder.js"></script>
+		{% endif %}
+
+		<script src="/js/navigation.js"></script>
+
+		{% block scripts %}{% endblock %}
+
+		<!-- This page `{{ page.url }}` was built on {% currentBuildDate %} -->
+		<script type="module" src="{% getBundleFileUrl "js" %}"></script>
+	</body>
+</html>

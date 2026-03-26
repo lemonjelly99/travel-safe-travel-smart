@@ -1,0 +1,79 @@
+{# ==========================================================================
+   PARTIAL: Site Footer
+   ========================================================================== #}
+<footer class="c-site-footer">
+  <div class="o-container">
+
+    <div class="c-site-footer__inner">
+
+      {# Brand column #}
+      <div class="c-site-footer__brand">
+        <a class="c-site-footer__logo" href="/" aria-label="Travel Safe Travel Smart — Home">
+          <img
+            eleventy:ignore 
+            class="c-site-footer__logo-img"
+            src="/img/logo.jpeg"
+            alt=""
+            width="40"
+            height="40"
+          >
+          <span class="c-site-footer__logo-text">
+            Travel Safe
+            <span>Travel Smart</span>
+          </span>
+        </a>
+        <p class="c-site-footer__description">
+          Keeping communities safe across the UK rail network through education, partnership and proactive outreach.
+        </p>
+      </div>
+
+      {# Quick Links #}
+      <div>
+        <h2 class="c-site-footer__heading">Quick Links</h2>
+        <ul class="c-site-footer__list">
+          <li><a href="/">Home</a></li>
+          <li><a href="/who-we-are/">Who We Are</a></li>
+          <li><a href="/what-we-do/">What We Do</a></li>
+          <li><a href="/news/">News</a></li>
+          <li><a href="/resources/">Resources</a></li>
+        </ul>
+      </div>
+
+      {# Get Involved #}
+      <div>
+        <h2 class="c-site-footer__heading">Get Involved</h2>
+        <ul class="c-site-footer__list">
+          <li><a href="/contact/">Contact Us</a></li>
+          <li><a href="/contact/#find-csm">Find Your Local CSM</a></li>
+          <li><a href="/what-we-do/#education-and-outreach">Book a School Session</a></li>
+          <li><a href="/resources/">Download Resources</a></li>
+        </ul>
+      </div>
+
+      {# Contact #}
+      <div>
+        <h2 class="c-site-footer__heading">Contact</h2>
+        <ul class="c-site-footer__list">
+          <li>
+            <a href="mailto:travelsafe@networkrail.co.uk">travelsafe@networkrail.co.uk</a>
+          </li>
+          <li>
+            <a href="tel:03457114141">03457 11 41 41</a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    {# Bottom Bar #}
+    <div class="c-site-footer__bottom">
+      {# <p>&copy; {{ "" | date("Y") if date else "2025" }} Network Rail. All rights reserved.</p> #}
+      <ul class="c-site-footer__legal">
+        <li><a href="/privacy/">Privacy Policy</a></li>
+        <li><a href="/cookies/">Cookies</a></li>
+        <li><a href="/accessibility/">Accessibility</a></li>
+      </ul>
+    </div>
+
+  </div>
+</footer>

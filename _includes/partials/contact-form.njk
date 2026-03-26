@@ -1,0 +1,157 @@
+{# ==========================================================================
+   PARTIAL: Contact Form
+   Generic contact form for the Contact Us page.
+
+   Usage:
+     {% include "partials/contact-form.njk" %}
+   ========================================================================== #}
+
+<section class="o-section" aria-labelledby="contact-form-heading">
+  <div class="o-container o-container--md">
+
+    <div class="c-section-header">
+      <h2 class="c-section-header__title" id="contact-form-heading">
+        Get in Touch
+      </h2>
+      <p class="c-section-header__description">
+        Have a question, concern or request? Fill in the form below and we'll get back to you as soon as possible.
+      </p>
+    </div>
+
+    {# Success/error banners — shown by server or JS after submission #}
+    {%- if formSuccess %}
+    <div class="c-form__banner c-form__banner--success" role="alert">
+      Thank you for your message. We'll be in touch shortly.
+    </div>
+    {%- endif %}
+    {%- if formError %}
+    <div class="c-form__banner c-form__banner--error" role="alert">
+      There was a problem sending your message. Please try again.
+    </div>
+    {%- endif %}
+
+    <div class="c-form" role="form" aria-label="Contact form">
+      <form method="post" action="/contact/" novalidate>
+
+        <div class="c-form__group">
+          <label class="c-form__label c-form__label--required" for="contact-name">
+            Your name
+          </label>
+          <input
+            class="c-form__input"
+            type="text"
+            id="contact-name"
+            name="name"
+            autocomplete="name"
+            required
+            aria-required="true"
+          >
+        </div>
+
+        <div class="c-form__group">
+          <label class="c-form__label c-form__label--required" for="contact-email">
+            Email address
+          </label>
+          <input
+            class="c-form__input"
+            type="email"
+            id="contact-email"
+            name="email"
+            autocomplete="email"
+            required
+            aria-required="true"
+          >
+        </div>
+
+        <div class="c-form__group">
+          <label class="c-form__label" for="contact-phone">
+            Phone number
+          </label>
+          <span class="c-form__hint" id="contact-phone-hint">
+            Optional — in case we need to call you back.
+          </span>
+          <input
+            class="c-form__input"
+            type="tel"
+            id="contact-phone"
+            name="phone"
+            autocomplete="tel"
+            aria-describedby="contact-phone-hint"
+          >
+        </div>
+
+        <div class="c-form__group">
+          <label class="c-form__label" for="contact-organisation">
+            Organisation
+          </label>
+          <span class="c-form__hint" id="contact-org-hint">
+            School, council, community group, etc.
+          </span>
+          <input
+            class="c-form__input"
+            type="text"
+            id="contact-organisation"
+            name="organisation"
+            autocomplete="organization"
+            aria-describedby="contact-org-hint"
+          >
+        </div>
+
+        <fieldset class="c-form__fieldset">
+          <legend class="c-form__legend">What is your enquiry about?</legend>
+          <div class="c-form__option">
+            <input type="radio" id="enquiry-school" name="enquiry_type" value="school">
+            <label for="enquiry-school">School or youth engagement</label>
+          </div>
+          <div class="c-form__option">
+            <input type="radio" id="enquiry-safety" name="enquiry_type" value="safety">
+            <label for="enquiry-safety">Local safety concern</label>
+          </div>
+          <div class="c-form__option">
+            <input type="radio" id="enquiry-partner" name="enquiry_type" value="partnership">
+            <label for="enquiry-partner">Partnership opportunity</label>
+          </div>
+          <div class="c-form__option">
+            <input type="radio" id="enquiry-media" name="enquiry_type" value="media">
+            <label for="enquiry-media">Media or press enquiry</label>
+          </div>
+          <div class="c-form__option">
+            <input type="radio" id="enquiry-other" name="enquiry_type" value="other" checked>
+            <label for="enquiry-other">Other</label>
+          </div>
+        </fieldset>
+
+        <div class="c-form__group">
+          <label class="c-form__label c-form__label--required" for="contact-message">
+            Your message
+          </label>
+          <textarea
+            class="c-form__input"
+            id="contact-message"
+            name="message"
+            rows="6"
+            required
+            aria-required="true"
+          ></textarea>
+        </div>
+
+        <div class="c-form__group">
+          <div class="c-form__option">
+            <input type="checkbox" id="contact-privacy" name="privacy" required aria-required="true">
+            <label for="contact-privacy">
+              I agree to the <a href="/privacy/">privacy policy</a> and understand my data will be used to respond to this enquiry.
+            </label>
+          </div>
+        </div>
+
+        <div class="c-form__actions">
+          <button class="c-btn c-btn--primary" type="submit">
+            Send message
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+</section>

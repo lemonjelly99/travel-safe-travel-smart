@@ -1,0 +1,24 @@
+/* ==========================================================================
+   COMPONENT: Skip Link
+   ========================================================================== */
+
+.c-skip-link {
+  position: fixed;
+  top: var(--space-4);
+  left: var(--space-4);
+  z-index: var(--z-skip-link);
+  padding: var(--space-3) var(--space-6);
+  background: var(--color-navy);
+  color: var(--color-white);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  transform: translateY(-200%);
+  transition: transform var(--transition-fast);
+}
+
+.c-skip-link:focus {
+  transform: translateY(0);
+  outline: var(--border-width-thick) solid var(--color-yellow);
+  outline-offset: 2px;
+}

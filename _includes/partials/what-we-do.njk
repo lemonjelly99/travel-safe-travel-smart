@@ -1,0 +1,79 @@
+
+{% from "macros/feature.njk" import feature %}
+{% from "macros/button.njk" import button %}
+
+{%- for item in whatWeDo %}
+  {% set indexLoop = loop.index %}
+  {% if loop.index < 10 %}
+    {% set indexLoop = '0' + loop.index %}
+  {% endif %}
+  {# {% include "partials/what-we-do/" + item.slug + ".njk" ignore missing %} #}
+
+
+  {% set mainContent %}
+    <span class="c-section-header__kicker">{{ indexLoop }}</span>
+    <h2>{{ item.title }}</h2>
+    {{ item.description | safe }}
+
+    {% if item.buttons %} 
+    {% for btn in item.buttons %}
+      {{ button({ label: btn.label, url: btn.url, style: btn.style }) }}
+    {% endfor %}
+    {% endif %}
+
+    {% if item.cluster %}
+      <div class="o-cluster u-mt-4">
+        {% for tag in item.cluster %}
+          <span class="c-tag c-tag--default">{{ tag }}</span>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endset %}
+
+  {% set secondaryContent %}
+    {% if item.features %}
+      <div class="o-stack">
+        {% for feature in item.features %}
+          <div class="c-feature">
+            <div class="c-feature__icon" aria-hidden="true">{{ feature.icon }}</div>
+            <h3 class="c-feature__title">{{ feature.title }}</h3>
+            <p class="c-feature__text">{{ feature.text }}</p>
+            {% if feature.button %} {{ button({ label: feature.button.label, url: feature.button.url, style: "primary" }) }} {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if item.quotes %}
+      <div class="c-quotes">
+        {% for quote in item.quotes %}
+          <blockquote class="c-quote">
+            <p>{{ quote.text }}</p>
+            <footer>&mdash; {{ quote.credit }}</footer>
+          </blockquote>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endset %}
+
+  <section id="{{ item.slug }} " class="o-section {% if loop.index is even %}u-bg-cream{% endif %}">
+    <div class="o-container o-container--lg">
+
+      {% if item.features.length > 0 or item.quotes.length > 0 %}
+      <div class="o-sidebar">
+        <div>
+          {{ mainContent | safe }}
+        </div>
+        <div>
+          {{ secondaryContent | safe }}
+        </div>
+      </div>
+      {% else %}
+        {{ mainContent | safe }}
+        {{ secondaryContent | safe}}
+      {% endif %}
+    </div>
+  </section>
+
+{%- endfor %}
+

@@ -1,0 +1,25 @@
+/* ==========================================================================
+   TOOLS
+   Reusable CSS patterns via custom properties & calculations.
+   No preprocessor required — pure CSS.
+   ========================================================================== */
+
+/* ---- Fluid Typography Helper ----
+   Usage: Apply these as font-size on containers to get fluid sizing.
+   clamp(min, preferred, max) */
+
+:root {
+  --fluid-sm:   clamp(var(--text-sm),   1.5vw,  var(--text-base));
+  --fluid-base: clamp(var(--text-base),  1.8vw,  var(--text-md));
+  --fluid-lg:   clamp(var(--text-lg),   2.5vw,  var(--text-2xl));
+  --fluid-xl:   clamp(var(--text-2xl),  3.5vw,  var(--text-4xl));
+  --fluid-2xl:  clamp(var(--text-3xl),  5vw,    var(--text-5xl));
+}
+
+/* ---- Fluid Spacing ---- */
+:root {
+  --fluid-space-sm:  clamp(var(--space-4),  2vw, var(--space-6));
+  --fluid-space-md:  clamp(var(--space-6),  4vw, var(--space-12));
+  --fluid-space-lg:  clamp(var(--space-10), 6vw, var(--space-20));
+  --fluid-space-xl:  clamp(var(--space-16), 8vw, var(--space-32));
+}

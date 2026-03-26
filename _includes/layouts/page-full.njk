@@ -1,0 +1,27 @@
+---
+layout: layouts/base.njk
+---
+
+
+{# ---- Breadcrumb ---- #}
+
+{% set breadcrumbs = [
+  { label: "Home", url: "/" },
+  { label: title }
+] %}
+{% include "partials/breadcrumb.njk" %}
+
+
+{# ---- Hero ---- #}
+
+{% set heroData = {
+  kicker: kicker | default(null),
+  title:  title,
+  summary: description | default(null),
+  compact: true,
+  primaryBtn: primaryBtn | default(null),
+  secondaryBtn: secondaryBtn | default(null)
+} %}
+{% include "partials/hero.njk" %}
+
+{{ content | safe }}

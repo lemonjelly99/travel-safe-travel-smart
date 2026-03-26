@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel Safe Travel Smart | Network Rail</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --primary: #073458;
+      /* Navy */
+      --accent: #FDD95B;
+      /* Yellow */
+      --bg-light: #f8f9fa;
+      --text-main: #333333;
+      --text-light: #ffffff;
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text-main);
+      line-height: 1.6;
+      background-color: var(--bg-light);
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* --- Header & Navigation --- */
+    header {
+      background-color: var(--text-light);
+      padding: 1rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo-container img {
+      height: 70px;
+      /* Adjust based on your logo.jpeg */
+      width: auto;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    nav a:hover {
+      color: #d4b23f;
+    }
+
+    .btn-accent {
+      background-color: var(--accent);
+      color: var(--primary);
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      display: inline-block;
+    }
+
+    .btn-accent:hover {
+      background-color: #e5c249;
+      transform: translateY(-2px);
+    }
+
+    /* --- Hero Section --- */
+    .hero {
+      background-color: var(--primary);
+      color: var(--text-light);
+      padding: 6rem 5%;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle background track pattern effect */
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -50px;
+      left: 0;
+      right: 0;
+      height: 100px;
+      background: repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(253, 217, 91, 0.1) 40px, rgba(253, 217, 91, 0.1) 80px);
+      z-index: 0;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .hero h1 span {
+      color: var(--accent);
+    }
+
+    .hero h2 {
+      font-size: 1.25rem;
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+      color: #e0e6ed;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+
+    /* --- Aims Section (4 pillars) --- */
+    .aims-wrapper {
+      background-color: var(--accent);
+      padding: 3rem 5%;
+    }
+
+    .aims-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .aim-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-weight: 600;
+      color: var(--primary);
+      font-size: 1.1rem;
+    }
+
+    .aim-icon {
+      background: var(--primary);
+      color: var(--accent);
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-size: 1.2rem;
+    }
+
+    /* --- What We Do Section --- */
+    .services {
+      padding: 5rem 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-header h2 {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .section-header p {
+      max-width: 600px;
+      margin: 0 auto;
+      color: #555;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      justify-content: center;
+    }
+
+    /* Centering the last row if uneven */
+    .services-grid> :nth-last-child(1):nth-child(odd) {
+      grid-column: 1 / -1;
+      justify-self: center;
+      max-width: 400px;
+    }
+
+    .service-card {
+      background: var(--text-light);
+      border-radius: 12px;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 10px 30px rgba(7, 52, 88, 0.08);
+      transition: var(--transition);
+      border-top: 5px solid var(--primary);
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(7, 52, 88, 0.15);
+      border-top-color: var(--accent);
+    }
+
+    .service-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .service-card h3 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+
+    .service-card p {
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    .read-more {
+      color: var(--primary);
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: var(--transition);
+    }
+
+    .read-more:hover {
+      color: #d4b23f;
+    }
+
+    /* --- Map Section --- */
+    .map-section {
+      padding: 5rem 5%;
+      background-color: #e9ecef;
+      text-align: center;
+    }
+
+    .map-container {
+      max-width: 1000px;
+      margin: 2rem auto 0;
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px dashed var(--primary);
+      position: relative;
+    }
+
+    .map-placeholder-text {
+      color: var(--primary);
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.5rem;
+    }
+
+    /* --- Footer --- */
+    footer {
+      background: var(--primary);
+      color: var(--text-light);
+      text-align: center;
+      padding: 2rem 5%;
+      font-size: 0.9rem;
+    }
+
+    footer p {
+      opacity: 0.8;
+    }
+
+    /* --- Responsive --- */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+
+      nav ul {
+        display: none;
+        /* Add hamburger menu logic here later */
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+
+
+  <header>
+    <div class="logo-container">
+      <img src="logo.jpeg" alt="Travel Safe Travel Smart Logo">
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#what-we-do">What We Do</a></li>
+      </ul>
+    </nav>
+    <a href="#map" class="btn-accent">Find Your Local CSM</a>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Keeping Communities Safe Across the <span>UK Rail Network</span></h1>
+      <h2>Working together to reduce risk, raise awareness and build safer
+        railway communities.</h2>
+      <p>Travel Safe Travel Smart supports communities across the UK by
+        promoting railway safety, preventing harm and strengthening local
+        partnerships. We work directly with schools, colleges, community groups,
+        local authorities and partner agencies to help people understand the
+        risks around the railway and encourage safer behaviour.</p>
+    </div>
+  </section>
+
+  <section class="aims-wrapper">
+    <div class="aims-grid">
+      <div class="aim-item">
+        <div class="aim-icon">✓</div> Prevent accidents
+      </div>
+      <div class="aim-item">
+        <div class="aim-icon">✓</div> Reduce trespass & ASB
+      </div>
+      <div class="aim-item">
+        <div class="aim-icon">✓</div> Address local safety concerns
+      </div>
+      <div class="aim-item">
+        <div class="aim-icon">✓</div> Build community resilience
+      </div>
+    </div>
+  </section>
+
+  <section id="what-we-do" class="services">
+    <div class="section-header">
+      <h2>What We Do</h2>
+      <p>Community Safety Managers work at the heart of local communities,
+        delivering practical support and coordinated safety initiatives.</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🎓</div>
+        <h3>Education & Outreach</h3>
+        <p>We deliver engaging, age-appropriate rail safety sessions to schools,
+          youth groups and community organisations. Our sessions help young
+          people understand railway risks and the impact unsafe behaviour can
+          have on themselves and others.</p>
+        <a href="#" class="read-more">Read more &rarr;</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🤝</div>
+        <h3>Partnership Working</h3>
+        <p>We work closely with British Transport Police, local councils,
+          schools, charities and community organisations to respond to safety
+          concerns and develop joined-up solutions.</p>
+        <br>
+        <a href="#" class="read-more">Read more &rarr;</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🚫</div>
+        <h3>Reducing Trespass & ASB</h3>
+        <p>We identify hotspot locations and deliver targeted interventions
+          including safety campaigns, school engagement, improved signage and
+          community-based initiatives.</p>
+        <br>
+        <a href="#" class="read-more">Read more &rarr;</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🚨</div>
+        <h3>Incident & Community Support</h3>
+        <p>When safety concerns arise, we work with local partners to assess
+          risks, coordinate responses and provide clear communication and
+          reassurance to communities.</p>
+        <a href="#" class="read-more">Read more &rarr;</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🌍</div>
+        <h3>Community Initiatives</h3>
+        <p>From local safety days to national awareness campaigns, we take part
+          in events that build trust, raise awareness and empower communities to
+          stay safe around the railway.</p>
+        <a href="#" class="read-more">Read more &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="map" class="map-section">
+    <div class="section-header" style="margin-bottom: 1rem;">
+      <h2>Find Your Local Community Safety Manager</h2>
+      <p>Use the map below to connect with your local CSM and learn about
+        initiatives in your area.</p>
+    </div>
+
+    <div class="map-container">
+      <div class="map-placeholder-text">
+        📍 Interactive Map Integration Goes Here
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 Travel Safe Travel Smart. An initiative by Network Rail.</p>
+  </footer>
+
+</body>
+
+</html>

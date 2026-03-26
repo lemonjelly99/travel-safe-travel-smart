@@ -1,0 +1,50 @@
+{% from "macros/card.njk" import card %}
+
+
+{% if resources.length > 0 %}
+  {% for audience in resources %}
+    <section class="o-section {% if loop.index is even %}u-bg-cream{% endif %}">
+      <div class="o-container">
+        <div class="o-stack o-stack--lg">
+          {% for category in audience.categories %}
+            <div class="c-section-header">
+              {% if loop.first %}<span class="c-section-header__kicker">For {{audience.name}}</span>{% endif %}
+              <h2 class="c-section-header__title">{{category.name}}</h2>
+            </div>
+            <div class="o-grid o-grid--3">
+              {% for resource in category.items %}
+                {% set resourceFooter %}
+                  {% if resource.filetype and resource.filesize %}
+                    {{ resource.filetype | upper }} · {{ resource.filesize | upper }}
+                  {% elif resource.filetype %}
+                    {{ resource.filetype | upper }}
+                  {% elif resource.filesize %}
+                    {{ resource.filesize | upper }}
+                  {% else %}
+                    &nbsp;
+                  {% endif %}
+                {% endset %}
+
+                {{ card({
+                  url: resource.url or "/resources/" ~ audience.slug ~ "/" ~ category.slug ~ "/" ~ resource.id ~ "." ~ resource.filetype | lower,
+                  image: resource.imageUrl or "./" ~ title ~ "/" ~ audience.slug ~ "/" ~ category.slug ~ "/" ~ resource.id ~ ".jpg",
+                  imageAlt: "Image for " ~ resource.name,
+                  kicker: resource.kicker,
+                  title: resource.name,
+                  text: resource.description,
+                  footer: resourceFooter | safe, 
+                  tags: resource.tags
+                }) }}
+              {% endfor %}
+            </div>
+          {% endfor %}
+        </div>
+    </section>
+  {% endfor %}
+{% else %}
+  <section class="o-section">
+    <div class="o-container">
+      <p>No resources available at the moment. Please check back later.</p>
+    </div>
+  </section>
+{% endif %}

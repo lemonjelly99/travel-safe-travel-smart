@@ -1,0 +1,1315 @@
+---
+useMap: true
+layout: layouts/base.njk
+---
+
+{# ==========================================================================
+   PATTERN LIBRARY
+   A living reference of every component, object, token, and utility
+   in the Travel Safe Travel Smart design system.
+
+   Front matter:
+   ---
+   title: Pattern Library
+   layout: base.njk
+   useMap: true
+   ---
+   ========================================================================== #}
+
+{% from "macros/button.njk" import button %}
+{% from "macros/card.njk" import card %}
+{% from "macros/feature.njk" import feature %}
+{% from "macros/alert.njk" import alert %}
+
+
+{# =====================================================================
+   PATTERN LIBRARY – LOCAL STYLES
+   Scoped styles for the pattern library page itself.
+   These would NOT ship with the design system.
+   ===================================================================== #}
+<style>
+  .pl-section {
+    padding-block: var(--space-12);
+    border-block-end: 1px solid var(--color-border);
+  }
+  .pl-section:last-child {
+    border-block-end: none;
+  }
+  .pl-heading {
+    font-family: var(--font-family-heading);
+    font-size: var(--text-3xl);
+    color: var(--color-navy);
+    margin-block-end: var(--space-2);
+  }
+  .pl-subheading {
+    font-family: var(--font-family-heading);
+    font-size: var(--text-xl);
+    color: var(--color-navy);
+    margin-block-end: var(--space-4);
+    margin-block-start: var(--space-10);
+    padding-block-end: var(--space-2);
+    border-block-end: 2px solid var(--color-yellow);
+    display: inline-block;
+  }
+  .pl-description {
+    font-size: var(--text-md);
+    color: var(--color-text-muted);
+    max-width: 60ch;
+    margin-block-end: var(--space-8);
+  }
+  .pl-specimen {
+    padding: var(--space-6);
+    border: 1px dashed var(--color-grey-300);
+    border-radius: var(--radius-lg);
+    margin-block-end: var(--space-6);
+    background: var(--color-white);
+  }
+  .pl-specimen--dark {
+    background: var(--color-navy);
+    border-color: var(--color-navy-light);
+  }
+  .pl-specimen--cream {
+    background: var(--color-cream);
+    border-color: var(--color-cream-dark);
+  }
+  .pl-code {
+    font-family: var(--font-family-mono);
+    font-size: var(--text-xs);
+    background: var(--color-navy-dark);
+    color: var(--color-cream);
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+    margin-block-end: var(--space-6);
+    white-space: pre;
+    line-height: 1.6;
+  }
+  .pl-label {
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: var(--letter-spacing-caps);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-block-end: var(--space-3);
+  }
+  .pl-swatch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    gap: var(--space-4);
+  }
+  .pl-swatch {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+  }
+  .pl-swatch__color {
+    height: 4.5rem;
+  }
+  .pl-swatch__meta {
+    padding: var(--space-3);
+    font-size: var(--text-xs);
+    line-height: 1.5;
+    background: var(--color-white);
+  }
+  .pl-swatch__name {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-navy);
+  }
+  .pl-swatch__value {
+    color: var(--color-text-muted);
+    font-family: var(--font-family-mono);
+  }
+  .pl-type-sample {
+    margin-block-end: var(--space-4);
+    padding-block-end: var(--space-4);
+    border-block-end: 1px solid var(--color-border);
+  }
+  .pl-type-meta {
+    font-size: var(--text-xs);
+    font-family: var(--font-family-mono);
+    color: var(--color-text-muted);
+    margin-block-start: var(--space-2);
+  }
+  .pl-spacing-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-block-end: var(--space-3);
+  }
+  .pl-spacing-bar {
+    height: 1.5rem;
+    background: var(--color-yellow);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-yellow-dark);
+  }
+  .pl-spacing-label {
+    font-size: var(--text-xs);
+    font-family: var(--font-family-mono);
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+    width: 10rem;
+  }
+  .pl-shadow-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: var(--space-6);
+  }
+  .pl-shadow-box {
+    background: var(--color-white);
+    border-radius: var(--radius-md);
+    height: 6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--text-xs);
+    font-family: var(--font-family-mono);
+    color: var(--color-text-muted);
+  }
+  .pl-radius-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-6);
+    align-items: end;
+  }
+  .pl-radius-item {
+    text-align: center;
+  }
+  .pl-radius-box {
+    width: 5rem;
+    height: 5rem;
+    background: var(--color-cream);
+    border: 2px solid var(--color-navy);
+    margin-block-end: var(--space-2);
+  }
+  .pl-radius-label {
+    font-size: var(--text-xs);
+    font-family: var(--font-family-mono);
+    color: var(--color-text-muted);
+  }
+  .pl-toc {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+  .pl-toc a {
+    display: inline-block;
+    padding: var(--space-2) var(--space-4);
+    background: var(--color-cream);
+    color: var(--color-navy);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+    transition: background-color 150ms ease, color 150ms ease;
+  }
+  .pl-toc a:hover {
+    background: var(--color-navy);
+    color: var(--color-white);
+  }
+  .pl-grid-demo > * {
+    background: var(--color-cream);
+    border: 1px dashed var(--color-grey-300);
+    padding: var(--space-4);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    text-align: center;
+  }
+  .pl-inline-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    align-items: center;
+  }
+</style>
+
+
+{# =====================================================================
+   HERO – PATTERN LIBRARY INTRO
+   ===================================================================== #}
+
+{% set heroData = {
+  kicker: "Design System v1.0",
+  title:  "Pattern Library",
+  summary: "A living reference of every design token, layout object, component, and utility in the Travel Safe Travel Smart design system. Use this page to browse, test, and copy patterns into your templates.",
+  compact: true
+} %}
+{% include "partials/hero.njk" %}
+
+
+{# =====================================================================
+   TABLE OF CONTENTS
+   ===================================================================== #}
+
+<div class="o-section--sm o-container">
+  <p class="pl-label">Jump to</p>
+  <ul class="pl-toc">
+    <li><a href="#colours">Colours</a></li>
+    <li><a href="#typography">Typography</a></li>
+    <li><a href="#spacing">Spacing</a></li>
+    <li><a href="#shadows">Shadows</a></li>
+    <li><a href="#radii">Border Radii</a></li>
+    <li><a href="#layout">Layout Objects</a></li>
+    <li><a href="#buttons">Buttons</a></li>
+    <li><a href="#hero-component">Hero</a></li>
+    <li><a href="#cards">Cards</a></li>
+    <li><a href="#features">Feature Blocks</a></li>
+    <li><a href="#tags">Tags &amp; Badges</a></li>
+    <li><a href="#alerts">Alerts</a></li>
+    <li><a href="#breadcrumbs">Breadcrumbs</a></li>
+    <li><a href="#pagination">Pagination</a></li>
+    <li><a href="#forms">Forms</a></li>
+    <li><a href="#csm-finder2">CSM Finder</a></li>
+    <li><a href="#news">News List</a></li>
+    <li><a href="#section-headers">Section Headers</a></li>
+    <li><a href="#site-footer-demo">Footer</a></li>
+    <li><a href="#utilities">Utilities</a></li>
+  </ul>
+</div>
+
+
+{# =====================================================================
+   1. COLOURS
+   ===================================================================== #}
+
+<section id="colours" class="pl-section o-container">
+  <h2 class="pl-heading">Colours</h2>
+  <p class="pl-description">All colours are defined as CSS custom properties in <code>01-settings/settings.css</code> and referenced throughout the system. Change a token here and it propagates everywhere.</p>
+
+  <h3 class="pl-subheading">Brand Palette</h3>
+  <div class="pl-swatch-grid">
+    <div class="pl-swatch">
+      <div class="pl-swatch__color" style="background:#073552"></div>
+      <div class="pl-swatch__meta">
+        <div class="pl-swatch__name">Navy</div>
+        <div class="pl-swatch__value">#073552</div>
+        <div class="pl-swatch__value">--color-navy</div>
+      </div>
+    </div>
+    <div class="pl-swatch">
+      <div class="pl-swatch__color" style="background:#052840"></div>
+      <div class="pl-swatch__meta">
+        <div class="pl-swatch__name">Navy Dark</div>
+        <div class="pl-swatch__value">#052840</div>
+        <div class="pl-swatch__value">--color-navy-dark</div>
+      </div>
+    </div>
+    <div class="pl-swatch">
+      <div class="pl-swatch__color" style="background:#0a4a72"></div>
+      <div class="pl-swatch__meta">
+        <div class="pl-swatch__name">Navy Light</div>
+        <div class="pl-swatch__value">#0a4a72</div>
+        <div class="pl-swatch__value">--color-navy-light</div>
+      </div>
+    </div>
+    <div class="pl-swatch">
+      <div class="pl-swatch__color" style="background:#E8BD48"></div>
+      <div class="pl-swatch__meta">
+        <div class="pl-swatch__name">Yellow</div>
+        <div class="pl-swatch__value">#E8BD48</div>
+        <div class="pl-swatch__value">--color-yellow</div>
+      </div>
+    </div>
+    <div class="pl-swatch">
+      <div class="pl-swatch__color" style="background:#d4a832"></div>
+      <div class="pl-swatch__meta">
+        <div class="pl-swatch__name">Yellow Dark</div>
+        <div class="pl-swatch__value">#d4a832</div>
+        <div class="pl-swatch__value">--color-yellow-dark</div>
+      </div>
+    </div>
+    <div class="pl-swatch">
+      <div class="pl-swatch__color" style="background:#f0d078"></div>
+      <div class="pl-swatch__meta">
+        <div class="pl-swatch__name">Yellow Light</div>
+        <div class="pl-swatch__value">#f0d078</div>
+        <div class="pl-swatch__value">--color-yellow-light</div>
+      </div>
+    </div>
+    <div class="pl-swatch">
+      <div class="pl-swatch__color" style="background:#F4F5EC"></div>
+      <div class="pl-swatch__meta">
+        <div class="pl-swatch__name">Cream</div>
+        <div class="pl-swatch__value">#F4F5EC</div>
+        <div class="pl-swatch__value">--color-cream</div>
+      </div>
+    </div>
+    <div class="pl-swatch">
+      <div class="pl-swatch__color" style="background:#e8e9d8"></div>
+      <div class="pl-swatch__meta">
+        <div class="pl-swatch__name">Cream Dark</div>
+        <div class="pl-swatch__value">#e8e9d8</div>
+        <div class="pl-swatch__value">--color-cream-dark</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="pl-subheading">Neutrals</h3>
+  <div class="pl-swatch-grid">
+    <div class="pl-swatch">
+      <div class="pl-swatch__color" style="background:#ffffff; border-bottom: 1px solid #e5e5e0"></div>
+      <div class="pl-swatch__meta">
+        <div class="pl-swatch__name">White</div>
+        <div class="pl-swatch__value">#ffffff</div>
+      </div>
+    </div>
+    <div class="pl-swatch">
+      <div class="pl-swatch__color" style="background:#f7f7f5"></div>
+      <div class="pl-swatch__meta">
+        <div class="pl-swatch__name">Grey 100</div>
+        <div class="pl-swatch__value">#f7f7f5</div>
+      </div>
+    </div>
+    <div class="pl-swatch">
+      <div class="pl-swatch__color" style="background:#e5e5e0"></div>
+      <div class="pl-swatch__meta">
+        <div class="pl-swatch__name">Grey 200</div>
+        <div class="pl-swatch__value">#e5e5e0</div>
+      </div>
+    </div>
+    <div class="pl-swatch">
+      <div class="pl-swatch__color" style="background:#cccccc"></div>
+      <div class="pl-swatch__meta">
+        <div class="pl-swatch__name">Grey 300</div>
+        <div class="pl-swatch__value">#cccccc</div>
+      </div>
+    </div>
+    <div class="pl-swatch">
+      <div class="pl-swatch__color" style="background:#999999"></div>
+      <div class="pl-swatch__meta">
+        <div class="pl-swatch__name">Grey 400</div>
+        <div class="pl-swatch__value">#999999</div>
+      </div>
+    </div>
+    <div class="pl-swatch">
+      <div class="pl-swatch__color" style="background:#666666"></div>
+      <div class="pl-swatch__meta">
+        <div class="pl-swatch__name">Grey 500</div>
+        <div class="pl-swatch__value">#666666</div>
+      </div>
+    </div>
+    <div class="pl-swatch">
+      <div class="pl-swatch__color" style="background:#444444"></div>
+      <div class="pl-swatch__meta">
+        <div class="pl-swatch__name">Grey 600</div>
+        <div class="pl-swatch__value">#444444</div>
+      </div>
+    </div>
+    <div class="pl-swatch">
+      <div class="pl-swatch__color" style="background:#111111"></div>
+      <div class="pl-swatch__meta">
+        <div class="pl-swatch__name">Black</div>
+        <div class="pl-swatch__value">#111111</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="pl-subheading">Status Colours</h3>
+  <div class="pl-swatch-grid">
+    <div class="pl-swatch">
+      <div class="pl-swatch__color" style="background:#2e7d32"></div>
+      <div class="pl-swatch__meta">
+        <div class="pl-swatch__name">Success</div>
+        <div class="pl-swatch__value">#2e7d32</div>
+      </div>
+    </div>
+    <div class="pl-swatch">
+      <div class="pl-swatch__color" style="background:#ed6c02"></div>
+      <div class="pl-swatch__meta">
+        <div class="pl-swatch__name">Warning</div>
+        <div class="pl-swatch__value">#ed6c02</div>
+      </div>
+    </div>
+    <div class="pl-swatch">
+      <div class="pl-swatch__color" style="background:#d32f2f"></div>
+      <div class="pl-swatch__meta">
+        <div class="pl-swatch__name">Error</div>
+        <div class="pl-swatch__value">#d32f2f</div>
+      </div>
+    </div>
+    <div class="pl-swatch">
+      <div class="pl-swatch__color" style="background:#0a4a72"></div>
+      <div class="pl-swatch__meta">
+        <div class="pl-swatch__name">Info</div>
+        <div class="pl-swatch__value">#0a4a72</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{# =====================================================================
+   2. TYPOGRAPHY
+   ===================================================================== #}
+
+<section id="typography" class="pl-section o-container">
+  <h2 class="pl-heading">Typography</h2>
+  <p class="pl-description">Headings use <strong>DM Serif Display</strong> (serif). Body copy uses <strong>Source Sans 3</strong> (sans-serif). The type scale follows a Major Third ratio (1.25&times;).</p>
+
+  <h3 class="pl-subheading">Headings</h3>
+  <div class="pl-specimen">
+    <div class="pl-type-sample">
+      <h1 style="margin-block-end: 0">Heading 1 &mdash; DM Serif Display</h1>
+      <div class="pl-type-meta">--text-5xl / 3.75rem &middot; font-weight: 700 &middot; line-height: 1.2</div>
+    </div>
+    <div class="pl-type-sample">
+      <h2 style="margin-block-end: 0">Heading 2 &mdash; Rail Safety Across the Network</h2>
+      <div class="pl-type-meta">--text-4xl (fluid) &middot; font-weight: 700</div>
+    </div>
+    <div class="pl-type-sample">
+      <h3 style="margin-block-end: 0">Heading 3 &mdash; Community Partnerships</h3>
+      <div class="pl-type-meta">--text-xl / 1.5rem &middot; font-weight: 700</div>
+    </div>
+    <div class="pl-type-sample">
+      <h4 style="margin-block-end: 0">Heading 4 &mdash; School Engagement</h4>
+      <div class="pl-type-meta">--text-lg / 1.25rem &middot; font-weight: 700</div>
+    </div>
+    <div class="pl-type-sample">
+      <h5 style="margin-block-end: 0">Heading 5 &mdash; Key Partners</h5>
+      <div class="pl-type-meta">--text-md / 1.125rem &middot; Source Sans 3 &middot; font-weight: 600</div>
+    </div>
+    <div class="pl-type-sample" style="border: none; padding-block-end: 0; margin-block-end: 0">
+      <h6 style="margin-block-end: 0">Heading 6 &mdash; Resources</h6>
+      <div class="pl-type-meta">--text-base / 1rem &middot; Source Sans 3 &middot; uppercase &middot; font-weight: 600</div>
+    </div>
+  </div>
+
+  <h3 class="pl-subheading">Body Copy</h3>
+  <div class="pl-specimen">
+    <p>This is a standard body paragraph using Source Sans 3 at <code>--text-base</code> (1rem / 16px) with a line height of 1.6. Body copy is capped at 68 characters wide for comfortable reading. Travel Safe Travel Smart supports communities across the UK by promoting railway safety, preventing harm and strengthening local partnerships.</p>
+    <p>A second paragraph follows naturally. We work directly with schools, colleges, community groups, local authorities and partner agencies to help people understand the risks around the railway and encourage safer behaviour.</p>
+  </div>
+
+  <h3 class="pl-subheading">Inline Elements</h3>
+  <div class="pl-specimen">
+    <p>
+      This text contains a <a href="#">hyperlink to another page</a>,
+      some <strong>bold text</strong>,
+      some <em>italic text</em>,
+      some <code>inline code</code>,
+      a <mark>highlighted phrase</mark>,
+      and <small>small text for disclaimers</small>.
+    </p>
+  </div>
+
+  <h3 class="pl-subheading">Blockquote</h3>
+  <div class="pl-specimen">
+    <blockquote>
+      <p>The session was brilliant &mdash; the children were completely engaged and are still talking about it weeks later. It's made a real difference to how they think about the railway.</p>
+      <footer>&mdash; Year 5 teacher, Tonbridge Primary School</footer>
+    </blockquote>
+  </div>
+
+  <h3 class="pl-subheading">Lists</h3>
+  <div class="pl-specimen">
+    <div class="o-grid o-grid--2">
+      <div>
+        <p class="pl-label">Unordered</p>
+        <ul>
+          <li>School sessions</li>
+          <li>Youth organisations</li>
+          <li>Station visits</li>
+          <li>Digital resources</li>
+        </ul>
+      </div>
+      <div>
+        <p class="pl-label">Ordered</p>
+        <ol>
+          <li>Identify hotspot locations</li>
+          <li>Assess risk with partners</li>
+          <li>Deliver targeted intervention</li>
+          <li>Monitor and evaluate impact</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="pl-subheading">Code Block</h3>
+  <div class="pl-specimen">
+    <pre><code>// Eleventy config example
+module.exports = function (eleventyConfig) {
+  eleventyConfig.addPassthroughCopy("assets");
+  return {
+    templateFormats: ["njk", "md"],
+    dir: { input: "src", output: "_site" }
+  };
+};</code></pre>
+  </div>
+</section>
+
+
+{# =====================================================================
+   3. SPACING
+   ===================================================================== #}
+
+<section id="spacing" class="pl-section o-container">
+  <h2 class="pl-heading">Spacing Scale</h2>
+  <p class="pl-description">An 8px-based scale from <code>--space-1</code> (4px) to <code>--space-32</code> (128px). Fluid variants use <code>clamp()</code> for responsive spacing.</p>
+
+  <div class="pl-specimen">
+    {% set spacingTokens = [
+      { name: "--space-1",  value: "0.25rem (4px)" },
+      { name: "--space-2",  value: "0.5rem (8px)" },
+      { name: "--space-3",  value: "0.75rem (12px)" },
+      { name: "--space-4",  value: "1rem (16px)" },
+      { name: "--space-6",  value: "1.5rem (24px)" },
+      { name: "--space-8",  value: "2rem (32px)" },
+      { name: "--space-10", value: "2.5rem (40px)" },
+      { name: "--space-12", value: "3rem (48px)" },
+      { name: "--space-16", value: "4rem (64px)" },
+      { name: "--space-20", value: "5rem (80px)" },
+      { name: "--space-24", value: "6rem (96px)" },
+      { name: "--space-32", value: "8rem (128px)" }
+    ] %}
+    {% for token in spacingTokens %}
+    <div class="pl-spacing-row">
+      <div class="pl-spacing-label">{{ token.name }}<br>{{ token.value }}</div>
+      <div class="pl-spacing-bar" style="width: var({{ token.name }})"></div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+
+{# =====================================================================
+   4. SHADOWS
+   ===================================================================== #}
+
+<section id="shadows" class="pl-section o-container">
+  <h2 class="pl-heading">Shadows</h2>
+  <p class="pl-description">Elevation tokens for layering and depth. All shadows use the navy brand colour at low opacity for warmth.</p>
+
+  <div class="pl-specimen--cream pl-specimen">
+    <div class="pl-shadow-grid">
+      <div class="pl-shadow-box" style="box-shadow: var(--shadow-xs)">--shadow-xs</div>
+      <div class="pl-shadow-box" style="box-shadow: var(--shadow-sm)">--shadow-sm</div>
+      <div class="pl-shadow-box" style="box-shadow: var(--shadow-md)">--shadow-md</div>
+      <div class="pl-shadow-box" style="box-shadow: var(--shadow-lg)">--shadow-lg</div>
+      <div class="pl-shadow-box" style="box-shadow: var(--shadow-xl)">--shadow-xl</div>
+      <div class="pl-shadow-box" style="box-shadow: var(--shadow-focus)">--shadow-focus</div>
+    </div>
+  </div>
+</section>
+
+
+{# =====================================================================
+   5. BORDER RADII
+   ===================================================================== #}
+
+<section id="radii" class="pl-section o-container">
+  <h2 class="pl-heading">Border Radii</h2>
+
+  <div class="pl-specimen">
+    <div class="pl-radius-grid">
+      <div class="pl-radius-item">
+        <div class="pl-radius-box" style="border-radius: var(--radius-sm)"></div>
+        <div class="pl-radius-label">--radius-sm<br>0.25rem</div>
+      </div>
+      <div class="pl-radius-item">
+        <div class="pl-radius-box" style="border-radius: var(--radius-md)"></div>
+        <div class="pl-radius-label">--radius-md<br>0.5rem</div>
+      </div>
+      <div class="pl-radius-item">
+        <div class="pl-radius-box" style="border-radius: var(--radius-lg)"></div>
+        <div class="pl-radius-label">--radius-lg<br>0.75rem</div>
+      </div>
+      <div class="pl-radius-item">
+        <div class="pl-radius-box" style="border-radius: var(--radius-xl)"></div>
+        <div class="pl-radius-label">--radius-xl<br>1rem</div>
+      </div>
+      <div class="pl-radius-item">
+        <div class="pl-radius-box" style="border-radius: var(--radius-full)"></div>
+        <div class="pl-radius-label">--radius-full<br>9999px</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{# =====================================================================
+   6. LAYOUT OBJECTS
+   ===================================================================== #}
+
+<section id="layout" class="pl-section o-container">
+  <h2 class="pl-heading">Layout Objects</h2>
+  <p class="pl-description">Structural, cosmetic-free layout primitives. All use the <code>o-</code> namespace prefix.</p>
+
+  <h3 class="pl-subheading">o-container</h3>
+  <p>Centres content with max-width and inline padding. Variants: <code>--sm</code>, <code>--md</code>, <code>--lg</code>, <code>--xl</code> (default), <code>--max</code>.</p>
+
+  <h3 class="pl-subheading">o-grid</h3>
+  <p class="pl-label">Fixed columns: o-grid--2, o-grid--3, o-grid--4</p>
+  <div class="pl-specimen">
+    <div class="o-grid o-grid--3 pl-grid-demo">
+      <div>Column 1</div>
+      <div>Column 2</div>
+      <div>Column 3</div>
+    </div>
+  </div>
+
+  <p class="pl-label">Auto-fit responsive: o-grid--auto</p>
+  <div class="pl-specimen">
+    <div class="o-grid o-grid--auto pl-grid-demo">
+      <div>Auto 1</div>
+      <div>Auto 2</div>
+      <div>Auto 3</div>
+      <div>Auto 4</div>
+      <div>Auto 5</div>
+    </div>
+  </div>
+
+  <h3 class="pl-subheading">o-stack</h3>
+  <p>Adds vertical rhythm between child elements. Variants: <code>--sm</code>, <code>--lg</code>, <code>--xl</code>.</p>
+  <div class="pl-specimen">
+    <div class="o-stack pl-grid-demo">
+      <div>Stack item 1</div>
+      <div>Stack item 2</div>
+      <div>Stack item 3</div>
+    </div>
+  </div>
+
+  <h3 class="pl-subheading">o-cluster</h3>
+  <p>Wrapping horizontal items with consistent gap.</p>
+  <div class="pl-specimen">
+    <div class="o-cluster">
+      <span class="c-tag c-tag--default">Tag One</span>
+      <span class="c-tag c-tag--primary">Tag Two</span>
+      <span class="c-tag c-tag--secondary">Tag Three</span>
+      <span class="c-tag c-tag--default">Tag Four</span>
+      <span class="c-tag c-tag--default">Tag Five</span>
+    </div>
+  </div>
+
+  <h3 class="pl-subheading">o-sidebar</h3>
+  <p>Content + sidebar layout that collapses on narrow screens.</p>
+  <div class="pl-specimen">
+    <div class="o-sidebar pl-grid-demo">
+      <div>Sidebar (min 20rem)</div>
+      <div>Main content area (grows to fill)</div>
+    </div>
+  </div>
+
+  <h3 class="pl-subheading">o-section</h3>
+  <p>Vertical padding for page sections. Variants: <code>--sm</code>, <code>--lg</code>.</p>
+</section>
+
+
+{# =====================================================================
+   7. BUTTONS
+   ===================================================================== #}
+
+<section id="buttons" class="pl-section o-container">
+  <h2 class="pl-heading">Buttons</h2>
+  <p class="pl-description">Buttons come in multiple styles and sizes. Use the <code>button</code> macro for Nunjucks or apply classes directly.</p>
+
+  <h3 class="pl-subheading">Styles</h3>
+  <div class="pl-specimen">
+    <div class="pl-inline-row">
+      {{ button({ label: "Primary", url: "#", style: "primary" }) }}
+      {{ button({ label: "Secondary", url: "#", style: "secondary" }) }}
+      {{ button({ label: "Outline", url: "#", style: "outline" }) }}
+      {{ button({ label: "Ghost", url: "#", style: "ghost" }) }}
+    </div>
+  </div>
+
+  <p class="pl-label">On dark backgrounds</p>
+  <div class="pl-specimen pl-specimen--dark">
+    <div class="pl-inline-row">
+      {{ button({ label: "Primary", url: "#", style: "primary" }) }}
+      {{ button({ label: "Outline Inverse", url: "#", style: "outline-inverse" }) }}
+    </div>
+  </div>
+
+  <h3 class="pl-subheading">Sizes</h3>
+  <div class="pl-specimen">
+    <div class="pl-inline-row">
+      {{ button({ label: "Small", url: "#", style: "primary", size: "sm" }) }}
+      {{ button({ label: "Default", url: "#", style: "primary" }) }}
+      {{ button({ label: "Large", url: "#", style: "primary", size: "lg" }) }}
+    </div>
+  </div>
+
+  <h3 class="pl-subheading">States</h3>
+  <div class="pl-specimen">
+    <div class="pl-inline-row">
+      <a class="c-btn c-btn--primary" href="#">Normal</a>
+      <button class="c-btn c-btn--primary" disabled>Disabled</button>
+      <a class="c-btn c-btn--secondary" href="#">Normal</a>
+      <button class="c-btn c-btn--secondary" disabled>Disabled</button>
+    </div>
+  </div>
+
+  <h3 class="pl-subheading">Full Width</h3>
+  <div class="pl-specimen" style="max-width: 24rem">
+    {{ button({ label: "Full Width Button", url: "#", style: "primary", full: true }) }}
+  </div>
+
+  <div class="pl-code">{%- raw %}{% from "macros/button.njk" import button %}
+{{ button({ label: "Contact Us", url: "/contact/", style: "primary" }) }}
+{{ button({ label: "Submit", type: "submit", style: "secondary" }) }}{% endraw %}</div>
+</section>
+
+
+{# =====================================================================
+   8. HERO
+   ===================================================================== #}
+
+<section id="hero-component" class="pl-section o-container">
+  <h2 class="pl-heading">Hero</h2>
+  <p class="pl-description">Full-width hero banner with kicker, title, summary, and call-to-action buttons. Use <code>compact: true</code> for inner pages.</p>
+</section>
+
+{# Default hero #}
+<div style="margin-block-end: var(--space-6)">
+  {% set heroData = {
+    kicker: "Travel Safe Travel Smart",
+    title:  "Keeping Communities Safe Across the UK Rail Network",
+    summary: "Working together to reduce risk, raise awareness and build safer railway communities.",
+    primaryBtn: { label: "What We Do", url: "#" },
+    secondaryBtn: { label: "Contact Us", url: "#" }
+  } %}
+  {% include "partials/hero.njk" %}
+</div>
+
+{# Compact hero #}
+{% set heroData = {
+  kicker: "Inner Page",
+  title:  "Compact Hero Variant",
+  summary: "Used on inner pages with reduced vertical padding.",
+  compact: true
+} %}
+{% include "partials/hero.njk" %}
+
+<div class="o-container u-mt-8">
+  <div class="pl-code">{%- raw %}{% set heroData = {
+  kicker: "Travel Safe Travel Smart",
+  title:  "Keeping Communities Safe",
+  summary: "Working together to reduce risk...",
+  compact: false,
+  primaryBtn: { label: "What We Do", url: "/what-we-do/" },
+  secondaryBtn: { label: "Contact Us", url: "/contact/" }
+} %}
+{% include "partials/hero.njk" %}{% endraw %}</div>
+</div>
+
+
+{# =====================================================================
+   9. CARDS
+   ===================================================================== #}
+
+<section id="cards" class="pl-section o-container">
+  <h2 class="pl-heading">Cards</h2>
+  <p class="pl-description">Content cards for news articles, resources, and general content. Multiple variants available.</p>
+
+  <h3 class="pl-subheading">Default (with image)</h3>
+  <div class="pl-specimen">
+    <div class="o-grid o-grid--3">
+      {{ card({
+        url: "#",
+        kicker: "News",
+        title: "Rail Safety Week 2025: Record Engagement",
+        text: "This year's Rail Safety Week saw our biggest ever programme of events, reaching over 5,000 young people.",
+        image: "https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=600&h=340&fit=crop",
+        imageAlt: "Railway tracks stretching into the distance",
+        footer: "15 Nov 2025"
+      }) }}
+      {{ card({
+        url: "#",
+        kicker: "Partnership",
+        title: "New Partnership with Kent County Council",
+        text: "Expanding our reach to vulnerable young people across the county through youth services.",
+        image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&h=340&fit=crop",
+        imageAlt: "Group of people working together",
+        footer: "28 Oct 2025"
+      }) }}
+      {{ card({
+        url: "#",
+        kicker: "Results",
+        title: "Trespass Reduction at Lewes Station",
+        text: "A targeted campaign has led to a 60% reduction in trespass incidents over six months.",
+        image: "https://images.unsplash.com/photo-1527684651079-3ca288861a84?w=600&h=340&fit=crop",
+        imageAlt: "Train station platform",
+        footer: "10 Oct 2025"
+      }) }}
+    </div>
+  </div>
+
+  <h3 class="pl-subheading">Featured</h3>
+  <div class="pl-specimen" style="max-width: 24rem">
+    {{ card({
+      url: "#",
+      kicker: "Featured",
+      title: "Annual Impact Report 2025 Now Available",
+      text: "Download our full report detailing community safety outcomes across the South East.",
+      featured: true,
+      footer: "December 2025"
+    }) }}
+  </div>
+
+  <h3 class="pl-subheading">Compact (no image)</h3>
+  <div class="pl-specimen">
+    <div class="o-grid o-grid--3">
+      {{ card({
+        url: "#",
+        kicker: "Resource",
+        title: "KS2 Railway Safety Lesson Plan",
+        text: "A complete lesson plan with slides, worksheets, and teacher notes.",
+        footer: "PDF &middot; 2.4 MB"
+      }) }}
+      {{ card({
+        url: "#",
+        kicker: "Resource",
+        title: "Community Safety Poster Pack",
+        text: "Printable posters for display at stations and community centres.",
+        footer: "ZIP &middot; 8.1 MB"
+      }) }}
+      {{ card({
+        url: "#",
+        kicker: "Guide",
+        title: "Partner Engagement Toolkit",
+        text: "Everything you need to start a railway safety partnership in your area.",
+        footer: "PDF &middot; 1.7 MB"
+      }) }}
+    </div>
+  </div>
+
+  <h3 class="pl-subheading">Horizontal</h3>
+  <div class="pl-specimen">
+    {{ card({
+      url: "#",
+      kicker: "News",
+      title: "Community Safety Day in Ashford a Huge Success",
+      text: "Over 300 families attended our free community safety day at Ashford International, with interactive safety demonstrations and activities for all ages.",
+      image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&h=400&fit=crop",
+      imageAlt: "Families at an outdoor event",
+      horizontal: true,
+      footer: "5 Sep 2025"
+    }) }}
+  </div>
+
+  <div class="pl-code">{%- raw %}{% from "macros/card.njk" import card %}
+{{ card({
+  url: "/news/article-slug/",
+  kicker: "News",
+  title: "Article Title",
+  text: "Excerpt text...",
+  image: "/assets/img/news/photo.jpg",
+  footer: "15 Nov 2025",
+  featured: false,
+  horizontal: false
+}) }}{% endraw %}</div>
+</section>
+
+
+{# =====================================================================
+   10. FEATURE BLOCKS
+   ===================================================================== #}
+
+<section id="features" class="pl-section o-container">
+  <h2 class="pl-heading">Feature Blocks</h2>
+  <p class="pl-description">Icon + heading + description blocks used on the homepage and service pages.</p>
+
+  <h3 class="pl-subheading">Default (light background)</h3>
+  <div class="pl-specimen">
+    <div class="o-grid o-grid--auto">
+      {{ feature({ icon: "🎓", title: "Education & Outreach", text: "We deliver engaging, age-appropriate rail safety sessions to schools, youth groups and community organisations.", linkUrl: "#", linkText: "Learn more" }) }}
+      {{ feature({ icon: "🤝", title: "Partnership Working", text: "We work closely with British Transport Police, local councils, schools, charities and community organisations.", linkUrl: "#", linkText: "Learn more" }) }}
+      {{ feature({ icon: "🚫", title: "Reducing Trespass & ASB", text: "We identify hotspot locations and deliver targeted interventions including safety campaigns and school engagement.", linkUrl: "#", linkText: "Learn more" }) }}
+      {{ feature({ icon: "🚨", title: "Incident Support", text: "When safety concerns arise, we work with local partners to assess risks, coordinate responses and provide reassurance.", linkUrl: "#", linkText: "Learn more" }) }}
+      {{ feature({ icon: "🌍", title: "Community Initiatives", text: "From local safety days to national campaigns, we raise awareness and empower communities to stay safe.", linkUrl: "#", linkText: "Learn more" }) }}
+    </div>
+  </div>
+
+  <h3 class="pl-subheading">Inverse (dark background)</h3>
+  <div class="pl-specimen pl-specimen--dark">
+    <div class="o-grid o-grid--3">
+      {{ feature({ icon: "🎓", title: "Education", text: "School and youth group sessions across the network.", linkUrl: "#", inverse: true }) }}
+      {{ feature({ icon: "🤝", title: "Partnerships", text: "Working with BTP, councils, and community groups.", linkUrl: "#", inverse: true }) }}
+      {{ feature({ icon: "🚫", title: "Trespass Reduction", text: "Targeted interventions at hotspot locations.", linkUrl: "#", inverse: true }) }}
+    </div>
+  </div>
+
+  <div class="pl-code">{%- raw %}{% from "macros/feature.njk" import feature %}
+{{ feature({
+  icon: "🎓",
+  title: "Education & Outreach",
+  text: "Description text...",
+  linkUrl: "/what-we-do/#education",
+  linkText: "Learn more",
+  inverse: false
+}) }}{% endraw %}</div>
+</section>
+
+
+{# =====================================================================
+   11. TAGS & BADGES
+   ===================================================================== #}
+
+<section id="tags" class="pl-section o-container">
+  <h2 class="pl-heading">Tags &amp; Badges</h2>
+
+  <div class="pl-specimen">
+    <div class="o-cluster">
+      <span class="c-tag c-tag--default">Default</span>
+      <span class="c-tag c-tag--primary">Primary</span>
+      <span class="c-tag c-tag--secondary">Secondary</span>
+      <span class="c-tag c-tag--success">Success</span>
+      <span class="c-tag c-tag--warning">Warning</span>
+      <span class="c-tag c-tag--error">Error</span>
+    </div>
+  </div>
+
+  <div class="pl-code">&lt;span class="c-tag c-tag--primary"&gt;Primary&lt;/span&gt;
+&lt;span class="c-tag c-tag--success"&gt;Success&lt;/span&gt;</div>
+</section>
+
+
+{# =====================================================================
+   12. ALERTS
+   ===================================================================== #}
+
+<section id="alerts" class="pl-section o-container">
+  <h2 class="pl-heading">Alerts</h2>
+  <p class="pl-description">Contextual feedback messages. Can be dismissible.</p>
+
+  <div class="pl-specimen">
+    <div class="o-stack">
+      {{ alert({ type: "info", title: "Information", message: "School booking requests are typically confirmed within 5 working days.", dismissible: true }) }}
+      {{ alert({ type: "success", title: "Message sent", message: "Thank you for your enquiry. We'll be in touch shortly.", dismissible: true }) }}
+      {{ alert({ type: "warning", title: "Planned disruption", message: "Engineering works between Tonbridge and Ashford on 15–17 March may affect station access.", dismissible: true }) }}
+      {{ alert({ type: "error", title: "Form error", message: "Please check the highlighted fields and try again.", dismissible: true }) }}
+    </div>
+  </div>
+
+  <div class="pl-code">{%- raw %}{% from "macros/alert.njk" import alert %}
+{{ alert({
+  type: "success",
+  title: "Message sent",
+  message: "Thank you for your enquiry.",
+  dismissible: true
+}) }}{% endraw %}</div>
+</section>
+
+
+{# =====================================================================
+   13. BREADCRUMBS
+   ===================================================================== #}
+
+<section id="breadcrumbs" class="pl-section o-container">
+  <h2 class="pl-heading">Breadcrumbs</h2>
+
+  <div class="pl-specimen">
+    <nav class="c-breadcrumb" aria-label="Breadcrumb example">
+      <ol class="c-breadcrumb__list">
+        <li class="c-breadcrumb__item">
+          <a class="c-breadcrumb__link" href="#">Home</a>
+        </li>
+        <li class="c-breadcrumb__item">
+          <a class="c-breadcrumb__link" href="#">What We Do</a>
+        </li>
+        <li class="c-breadcrumb__item">
+          <span class="c-breadcrumb__current" aria-current="page">Education &amp; Outreach</span>
+        </li>
+      </ol>
+    </nav>
+  </div>
+
+  <div class="pl-code">{%- raw %}{% set breadcrumbs = [
+  { label: "Home", url: "/" },
+  { label: "What We Do", url: "/what-we-do/" },
+  { label: "Education & Outreach" }
+] %}
+{% include "partials/breadcrumb.njk" %}{% endraw %}</div>
+</section>
+
+
+{# =====================================================================
+   14. PAGINATION
+   ===================================================================== #}
+
+<section id="pagination" class="pl-section o-container">
+  <h2 class="pl-heading">Pagination</h2>
+
+  <div class="pl-specimen">
+    <nav class="c-pagination" aria-label="Pagination example">
+      <a class="c-pagination__link" href="#" aria-label="Previous page">&laquo; Prev</a>
+      <a class="c-pagination__link" href="#" aria-label="Page 1">1</a>
+      <a class="c-pagination__link" href="#" aria-label="Page 2">2</a>
+      <span class="c-pagination__current" aria-current="page" aria-label="Page 3, current page">3</span>
+      <a class="c-pagination__link" href="#" aria-label="Page 4">4</a>
+      <span class="c-pagination__ellipsis">&hellip;</span>
+      <a class="c-pagination__link" href="#" aria-label="Page 12">12</a>
+      <a class="c-pagination__link" href="#" aria-label="Next page">Next &raquo;</a>
+    </nav>
+  </div>
+
+  <div class="pl-code">{%- raw %}{# Automatic via Eleventy pagination: #}
+{% include "partials/pagination.njk" %}{% endraw %}</div>
+</section>
+
+
+{# =====================================================================
+   15. FORMS
+   ===================================================================== #}
+
+<section id="forms" class="pl-section o-container">
+  <h2 class="pl-heading">Forms</h2>
+  <p class="pl-description">Form elements and the contact form component. Includes validation states, hint text, and grouped options.</p>
+
+  <h3 class="pl-subheading">Form Elements</h3>
+  <div class="pl-specimen">
+    <div class="c-form">
+
+      <div class="c-form__group">
+        <label class="c-form__label c-form__label--required" for="pl-name">Text input (required)</label>
+        <input class="c-form__input" type="text" id="pl-name" placeholder="Your full name">
+      </div>
+
+      <div class="c-form__group">
+        <label class="c-form__label" for="pl-email-hint">Input with hint</label>
+        <span class="c-form__hint" id="pl-email-desc">We'll only use this to respond to your enquiry.</span>
+        <input class="c-form__input" type="email" id="pl-email-hint" placeholder="you@example.com" aria-describedby="pl-email-desc">
+      </div>
+
+      <div class="c-form__group">
+        <label class="c-form__label c-form__label--required" for="pl-error-field">Input with error</label>
+        <input class="c-form__input c-form__input--error" type="email" id="pl-error-field" value="not-an-email" aria-invalid="true" aria-describedby="pl-error-msg">
+        <span class="c-form__error" id="pl-error-msg">Please enter a valid email address.</span>
+      </div>
+
+      <div class="c-form__group">
+        <label class="c-form__label" for="pl-select">Select dropdown</label>
+        <select class="c-form__input c-form__select" id="pl-select">
+          <option value="">Choose an option&hellip;</option>
+          <option value="school">School engagement</option>
+          <option value="safety">Safety concern</option>
+          <option value="partnership">Partnership</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <div class="c-form__group">
+        <label class="c-form__label" for="pl-textarea">Textarea</label>
+        <textarea class="c-form__input" id="pl-textarea" rows="4" placeholder="Describe your enquiry&hellip;"></textarea>
+      </div>
+
+      <fieldset class="c-form__fieldset">
+        <legend class="c-form__legend">Radio group</legend>
+        <div class="c-form__option">
+          <input type="radio" id="pl-r1" name="pl-radio" value="a" checked>
+          <label for="pl-r1">School or youth engagement</label>
+        </div>
+        <div class="c-form__option">
+          <input type="radio" id="pl-r2" name="pl-radio" value="b">
+          <label for="pl-r2">Local safety concern</label>
+        </div>
+        <div class="c-form__option">
+          <input type="radio" id="pl-r3" name="pl-radio" value="c">
+          <label for="pl-r3">Partnership opportunity</label>
+        </div>
+      </fieldset>
+
+      <fieldset class="c-form__fieldset">
+        <legend class="c-form__legend">Checkbox group</legend>
+        <div class="c-form__option">
+          <input type="checkbox" id="pl-c1" name="pl-check" checked>
+          <label for="pl-c1">I agree to the privacy policy</label>
+        </div>
+        <div class="c-form__option">
+          <input type="checkbox" id="pl-c2" name="pl-check">
+          <label for="pl-c2">Subscribe to updates</label>
+        </div>
+      </fieldset>
+
+      <div class="c-form__actions">
+        {{ button({ label: "Submit form", type: "submit", style: "primary" }) }}
+        {{ button({ label: "Cancel", type: "button", style: "ghost" }) }}
+      </div>
+
+    </div>
+  </div>
+
+  <h3 class="pl-subheading">Form Banners</h3>
+  <div class="pl-specimen">
+    <div class="c-form__banner c-form__banner--success" role="alert">
+      Thank you for your message. We'll be in touch shortly.
+    </div>
+    <div class="c-form__banner c-form__banner--error" role="alert" style="margin-block-start: var(--space-4)">
+      There was a problem sending your message. Please try again.
+    </div>
+  </div>
+
+  <h3 class="pl-subheading">Full Contact Form</h3>
+  <p>The complete contact form partial is included below. In your templates use <code>{%- raw %}{% include "partials/contact-form.njk" %}{% endraw %}</code>.</p>
+</section>
+
+{% include "partials/contact-form.njk" %}
+
+
+{# =====================================================================
+   16. CSM FINDER (MAP + LIST)
+   ===================================================================== #}
+
+<section id="csm-finder2" class="pl-section o-container">
+  <h2 class="pl-heading">CSM Finder</h2>
+  <p class="pl-description">The Community Safety Manager locator component. Features an interactive Leaflet map with GeoJSON coverage areas, search, map/list toggle, and full <code>&lt;noscript&gt;</code> fallback. Set <code>useMap: true</code> in front matter to load Leaflet.</p>
+
+  <div class="pl-code">{%- raw %}{# In front matter: useMap: true #}
+{% include "partials/csm-finder.njk" %}{% endraw %}</div>
+</section>
+
+{% include "partials/csm-finder.njk" %}
+
+
+{# =====================================================================
+   17. NEWS LIST
+   ===================================================================== #}
+
+<section id="news" class="pl-section o-container">
+  <h2 class="pl-heading">News List</h2>
+  <p class="pl-description">A vertical news listing for the News index page.</p>
+
+  <div class="pl-specimen">
+    <ul class="c-news-list">
+      <li class="c-news-list__item">
+        <a class="c-news-list__link" href="#">
+          <div class="c-article-meta">
+            <span class="c-tag c-tag--secondary">Events</span>
+            <span class="c-article-meta__divider">&middot;</span>
+            <time>15 November 2025</time>
+          </div>
+          <h3 class="c-news-list__title">Rail Safety Week 2025: Record Engagement Across Kent and Sussex</h3>
+          <p class="c-news-list__excerpt">This year's Rail Safety Week saw our biggest ever programme of events, reaching over 5,000 young people across 45 schools.</p>
+        </a>
+      </li>
+      <li class="c-news-list__item">
+        <a class="c-news-list__link" href="#">
+          <div class="c-article-meta">
+            <span class="c-tag c-tag--default">Partnership</span>
+            <span class="c-article-meta__divider">&middot;</span>
+            <time>28 October 2025</time>
+          </div>
+          <h3 class="c-news-list__title">New Partnership with Kent County Council Youth Services</h3>
+          <p class="c-news-list__excerpt">Expanding our reach to vulnerable young people across the county through a new partnership with KCC Youth Services.</p>
+        </a>
+      </li>
+      <li class="c-news-list__item">
+        <a class="c-news-list__link" href="#">
+          <div class="c-article-meta">
+            <span class="c-tag c-tag--success">Results</span>
+            <span class="c-article-meta__divider">&middot;</span>
+            <time>10 October 2025</time>
+          </div>
+          <h3 class="c-news-list__title">Trespass Reduction Success at Lewes Station</h3>
+          <p class="c-news-list__excerpt">A targeted campaign at Lewes station has led to a 60% reduction in trespass incidents over the past six months.</p>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <h3 class="pl-subheading">Article Meta (with author)</h3>
+  <div class="pl-specimen">
+    <div class="c-article-meta">
+      <a class="c-article-meta__author" href="#">
+        <span class="c-csm-card__avatar c-csm-card__avatar--placeholder" style="width:1.75rem;height:1.75rem;font-size:0.625rem;display:inline-flex" aria-hidden="true">JS</span>
+        Jane Smith
+      </a>
+      <span class="c-article-meta__divider">&middot;</span>
+      <time>15 November 2025</time>
+      <span class="c-article-meta__divider">&middot;</span>
+      <span>4 min read</span>
+    </div>
+  </div>
+</section>
+
+
+{# =====================================================================
+   18. SECTION HEADERS
+   ===================================================================== #}
+
+<section id="section-headers" class="pl-section o-container">
+  <h2 class="pl-heading">Section Headers</h2>
+  <p class="pl-description">Standardised section introductions with optional kicker, title, and description.</p>
+
+  <h3 class="pl-subheading">Left-aligned (default)</h3>
+  <div class="pl-specimen">
+    <div class="c-section-header">
+      <span class="c-section-header__kicker">What We Do</span>
+      <h2 class="c-section-header__title">Community Safety Initiatives</h2>
+      <p class="c-section-header__description">Our Community Safety Managers deliver practical support and coordinated safety initiatives at the heart of local communities.</p>
+    </div>
+  </div>
+
+  <h3 class="pl-subheading">Centre-aligned</h3>
+  <div class="pl-specimen">
+    <div class="c-section-header c-section-header--center">
+      <span class="c-section-header__kicker">Find Your Local</span>
+      <h2 class="c-section-header__title">Community Safety Manager</h2>
+      <p class="c-section-header__description">Your main point of contact for railway safety concerns, school engagement and partnership opportunities.</p>
+    </div>
+  </div>
+</section>
+
+
+{# =====================================================================
+   19. FOOTER
+   ===================================================================== #}
+
+<section id="site-footer-demo" class="pl-section o-container">
+  <h2 class="pl-heading">Site Footer</h2>
+  <p class="pl-description">The global footer is included automatically via the base layout. It contains brand info, quick links, contact details, and legal links. See it at the bottom of this page.</p>
+
+  <div class="pl-code">{%- raw %}{# Included automatically in base.njk: #}
+{% include "partials/site-footer.njk" %}{% endraw %}</div>
+</section>
+
+
+{# =====================================================================
+   20. UTILITIES
+   ===================================================================== #}
+
+<section id="utilities" class="pl-section o-container">
+  <h2 class="pl-heading">Utilities</h2>
+  <p class="pl-description">Single-purpose override classes with <code>!important</code>. Use sparingly for one-off adjustments. All use the <code>u-</code> namespace prefix.</p>
+
+  <h3 class="pl-subheading">Text</h3>
+  <div class="pl-specimen">
+    <p class="u-text-center" style="margin-block-end: var(--space-3)"><code>.u-text-center</code> &mdash; This text is centred</p>
+    <p class="u-text-right" style="margin-block-end: var(--space-3)"><code>.u-text-right</code> &mdash; This text is right-aligned</p>
+    <p class="u-font-bold" style="margin-block-end: var(--space-3)"><code>.u-font-bold</code> &mdash; This text is bold</p>
+    <p class="u-color-muted" style="margin-block-end: var(--space-3)"><code>.u-color-muted</code> &mdash; This text is muted</p>
+    <p class="u-text-sm" style="margin-block-end: 0"><code>.u-text-sm</code> &mdash; This text is small</p>
+  </div>
+
+  <h3 class="pl-subheading">Backgrounds</h3>
+  <div class="pl-specimen">
+    <div class="pl-inline-row">
+      <span class="u-bg-navy u-color-white" style="padding: var(--space-3) var(--space-4); border-radius: var(--radius-md)">.u-bg-navy</span>
+      <span class="u-bg-cream" style="padding: var(--space-3) var(--space-4); border-radius: var(--radius-md)">.u-bg-cream</span>
+      <span class="u-bg-yellow" style="padding: var(--space-3) var(--space-4); border-radius: var(--radius-md)">.u-bg-yellow</span>
+      <span class="u-bg-white" style="padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border: 1px solid var(--color-border)">.u-bg-white</span>
+    </div>
+  </div>
+
+  <h3 class="pl-subheading">Spacing</h3>
+  <div class="pl-specimen">
+    <p>Margin: <code>.u-mt-0</code>, <code>.u-mt-4</code>, <code>.u-mt-8</code>, <code>.u-mt-12</code>, <code>.u-mb-0</code>, <code>.u-mb-4</code>, <code>.u-mb-8</code>, <code>.u-mb-12</code></p>
+    <p>Padding: <code>.u-pt-0</code>, <code>.u-pb-0</code>, <code>.u-p-4</code>, <code>.u-p-6</code>, <code>.u-p-8</code></p>
+  </div>
+
+  <h3 class="pl-subheading">Display &amp; Visibility</h3>
+  <div class="pl-specimen">
+    <p><code>.u-hidden</code> &mdash; display: none</p>
+    <p><code>.u-hide-mobile</code> &mdash; hidden below 48rem</p>
+    <p><code>.u-hide-tablet</code> &mdash; hidden above 48rem</p>
+    <p><code>.u-show-desktop</code> &mdash; visible only above 64rem</p>
+    <p style="margin-block-end: 0"><code>.u-no-print</code> &mdash; hidden when printing</p>
+  </div>
+
+  <h3 class="pl-subheading">Accessible Hide</h3>
+  <div class="pl-specimen">
+    <p><code>.o-sr-only</code> &mdash; visually hidden but available to screen readers. Part of the Objects layer. Becomes visible on <code>:focus</code>.</p>
+  </div>
+</section>

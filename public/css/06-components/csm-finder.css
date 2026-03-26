@@ -1,0 +1,304 @@
+/* ==========================================================================
+   COMPONENT: CSM Finder (Map + List)
+   The community safety manager locator. Includes map view, list view,
+   search, and person cards.
+   ========================================================================== */
+
+/* ---- Wrapper ---- */
+.c-csm-finder {
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-white);
+}
+
+/* ---- Toolbar / Controls ---- */
+.c-csm-finder__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-6);
+  background: var(--color-cream);
+  border-block-end: var(--border-width) solid var(--color-border);
+}
+
+.c-csm-finder__search {
+  flex: 1 1 16rem;
+  position: relative;
+}
+
+.c-csm-finder__search-input {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  padding-inline-start: var(--space-10);
+  font-size: var(--text-sm);
+  border: var(--border-width) solid var(--color-grey-300);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  transition: border-color var(--transition-fast),
+              box-shadow var(--transition-fast);
+}
+
+.c-csm-finder__search-input:focus {
+  outline: none;
+  border-color: var(--color-navy);
+  box-shadow: var(--shadow-focus);
+}
+
+.c-csm-finder__search-icon {
+  position: absolute;
+  left: var(--space-3);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--color-grey-400);
+  pointer-events: none;
+}
+
+.c-csm-finder__view-toggle {
+  display: flex;
+  border: var(--border-width) solid var(--color-grey-300);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.c-csm-finder__view-btn {
+  appearance: none;
+  border: none;
+  background: var(--color-white);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  transition: background-color var(--transition-fast),
+              color var(--transition-fast);
+  color: var(--color-text-muted);
+}
+
+.c-csm-finder__view-btn + .c-csm-finder__view-btn {
+  border-inline-start: var(--border-width) solid var(--color-grey-300);
+}
+
+.c-csm-finder__view-btn:hover {
+  background: var(--color-grey-100);
+}
+
+.c-csm-finder__view-btn[aria-pressed="true"],
+.c-csm-finder__view-btn--active {
+  background: var(--color-navy);
+  color: var(--color-white);
+}
+
+.c-csm-finder__view-btn:focus-visible {
+  outline: var(--border-width-thick) solid var(--color-focus);
+  outline-offset: -2px;
+}
+
+.c-csm-finder__view-btn-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* ---- Results count / status ---- */
+.c-csm-finder__status {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  padding: var(--space-2) var(--space-6);
+  border-block-end: var(--border-width) solid var(--color-border);
+}
+
+[aria-live="polite"] {
+  /* Screen reader announcement styling — visual is optional */
+}
+
+/* ---- Map Container ---- */
+.c-csm-finder__map {
+  height: 28rem;
+  background: var(--color-grey-100);
+  position: relative;
+}
+
+.c-csm-finder__map--loading::after {
+  content: "Loading map…";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  background: var(--color-grey-100);
+}
+
+@media (min-width: 64rem) {
+  .c-csm-finder__map {
+    height: 32rem;
+  }
+}
+
+/* ---- Leaflet popup override ---- */
+.c-csm-finder .leaflet-popup-content-wrapper {
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  font-family: var(--font-family-body);
+}
+
+.c-csm-finder .leaflet-popup-content {
+  margin: var(--space-4);
+  font-size: var(--text-sm);
+  line-height: var(--line-height-normal);
+}
+
+/* ---- List View ---- */
+.c-csm-finder__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.c-csm-finder__list[hidden] {
+  display: none;
+}
+
+/* ---- No results ---- */
+.c-csm-finder__empty {
+  padding: var(--space-12) var(--space-6);
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.c-csm-finder__empty-icon {
+  font-size: var(--text-4xl);
+  margin-block-end: var(--space-4);
+  opacity: 0.4;
+}
+
+/* ==========================================================================
+   SUB-COMPONENT: CSM Person Card (used inside finder list & map popups)
+   ========================================================================== */
+
+.c-csm-card {
+  display: flex;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-6);
+  border-block-end: var(--border-width) solid var(--color-border);
+  transition: background-color var(--transition-fast);
+}
+
+.c-csm-card:last-child {
+  border-block-end: none;
+}
+
+.c-csm-card:hover {
+  background: var(--color-cream);
+}
+
+.c-csm-card__avatar {
+  flex-shrink: 0;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  background: var(--color-grey-200);
+  border: 2px solid var(--color-white);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Placeholder when no avatar */
+.c-csm-card__avatar--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-navy);
+  color: var(--color-yellow);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-lg);
+  border: none;
+}
+
+.c-csm-card__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.c-csm-card__name {
+  font-family: var(--font-family-heading);
+  font-size: var(--text-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-navy);
+  margin-block-end: var(--space-1);
+}
+
+.c-csm-card__role {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-block-end: var(--space-2);
+}
+
+.c-csm-card__area {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-navy);
+  background: var(--color-cream);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  margin-block-end: var(--space-2);
+}
+
+.c-csm-card__contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-block-start: var(--space-2);
+}
+
+.c-csm-card__contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--color-navy);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+}
+
+.c-csm-card__contact-link:hover {
+  text-decoration: underline;
+  color: var(--color-navy-light);
+}
+
+.c-csm-card__contact-link:focus-visible {
+  outline: var(--border-width-thick) solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.c-csm-card__contact-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+  flex-shrink: 0;
+}
+
+/* ---- Compact variant for map popups ---- */
+.c-csm-card--popup {
+  padding: 0;
+  border: none;
+}
+
+.c-csm-card--popup:hover {
+  background: transparent;
+}
+
+.c-csm-card--popup .c-csm-card__avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+}

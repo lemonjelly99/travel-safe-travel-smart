@@ -1,0 +1,81 @@
+{# ==========================================================================
+   PARTIAL: CSM Finder (Map + List)
+   Renders the Community Safety Manager locator with map, search, and
+   accessible list fallback.
+
+   Usage in a page template:
+     ---
+     useMap: true
+     ---
+     {% include "partials/csm-finder.njk" %}
+
+   Requires:
+     - `people` data from _data/people.js
+     - Leaflet CSS/JS (loaded automatically when useMap is true in base layout)
+     - /assets/js/csm-finder.js
+
+   The JS reads CSM data from the <script id="csm-data"> tag below.
+   ========================================================================== #}
+
+<section class="o-section" aria-labelledby="csm-finder-heading">
+  <div class="o-container">
+
+    <div class="c-section-header c-section-header--center">
+      <span class="c-section-header__kicker">Find Your Local</span>
+      <h2 class="c-section-header__title" id="csm-finder-heading">
+        Community Safety Manager
+      </h2>
+      <p class="c-section-header__description">
+        Our Community Safety Managers are your main point of contact for railway safety concerns, school engagement requests and partnership opportunities.
+      </p>
+    </div>
+
+    {# The JS component mounts here #}
+    <div id="csm-finder" data-csm-finder></div>
+
+    {# ---- Accessible no-JS fallback ---- #}
+    <noscript>
+      <div class="o-stack">
+        <p>To use the interactive map, please enable JavaScript. You can also browse our Community Safety Managers below:</p>
+        <ul class="c-csm-finder__list" role="list">
+          {%- for person in people %}
+          {%- if person.role and ("community safety" in person.role | lower or "csm" in person.role | lower) %}
+          <li>
+            <div class="c-csm-card">
+              {% if person.photo %}
+              <img class="c-csm-card__avatar" src="{{ person.photo }}" alt="" loading="lazy">
+              {% else %}
+              <span class="c-csm-card__avatar c-csm-card__avatar--placeholder" aria-hidden="true">
+                {{ person.name | truncate(2, true, "") | upper }}
+              </span>
+              {% endif %}
+              <div class="c-csm-card__body">
+                <div class="c-csm-card__name">{{ person.name }}</div>
+                <div class="c-csm-card__role">{{ person.role }}</div>
+                {% if person.area %}
+                <span class="c-csm-card__area">{{ person.area }}</span>
+                {% endif %}
+                <div class="c-csm-card__contact">
+                  {% if person.email %}
+                  <a class="c-csm-card__contact-link" href="mailto:{{ person.email }}">{{ person.email }}</a>
+                  {% endif %}
+                  {% if person.phone %}
+                  <a class="c-csm-card__contact-link" href="tel:{{ person.phone | replace(' ', '') }}">{{ person.phone }}</a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </li>
+          {%- endif %}
+          {%- endfor %}
+        </ul>
+      </div>
+    </noscript>
+
+  </div>
+</section>
+
+{# ---- Data payload for JS ---- #}
+<script id="csm-data" type="application/json">
+  {{ people | dump | safe }}
+</script>

@@ -1,0 +1,112 @@
+{% from "macros/card.njk" import card %}
+
+
+{% macro newsCard(post, horizontal=false, showTags=true) %}
+
+{% set author = post.data.authorData.name if post.data.authorData else null %}
+{% set postDate = post.date | readableDate("d LLL yyyy") %}
+{% set postReadingTime = post.data.readingTime + " min read" if post.data.readingTime else null %}
+
+
+
+
+{% set cardFooter %}
+{# <div class="c-article-meta"> #}
+  
+{% if author %}
+  <span class="c-article-meta__author">
+    <span class="c-csm-card__avatar c-csm-card__avatar--placeholder" style="width:1.75rem;height:1.75rem;font-size:0.625rem;display:inline-flex" aria-hidden="true">{{ author | initials }}</span>
+    {{ author }}
+  </span>
+  <span class="c-article-meta__divider">&middot;</span>
+{% endif %}
+
+<time>{{ postDate }}</time>
+
+{% if postReadingTime %}
+  <span class="c-article-meta__divider">&middot;</span>
+  <span>{{ postReadingTime }}</span>
+{% endif %}
+
+{# {% if showTags %}
+  {% if post.data.tags.length > 0 %}
+    <span class="c-article-meta__divider">&middot;</span>
+    {% for tag in post.data.tags | filterTagList | sortAlphabetically %}
+      <span class="c-tag c-tag--default">{{ tag }}</span>
+    {% endfor %}
+  {% endif %}
+{% endif %} #}
+
+{# </div> #}
+{% endset %}
+
+
+{% set props = {
+  kicker: post.data.category | capitalize if post.data.category else "Uncategorized",
+  title: post.data.title,
+  text: post.data.description,
+  image: post.data.image if post.data.image else null,
+  imageAlt: post.data.imageAlt if post.data.imageAlt else "",
+  featured: post.data.featured if post.data.featured else false,
+  horizontal: horizontal if horizontal else false,
+  tags: post.data.tags | filterTagList | sortAlphabetically | arrayLowercase,
+  url: post.url,
+  footer: cardFooter | safe,
+  author: author,
+  date: postDate,
+  dateFull: post.date | htmlDateString,
+  readingTime: postReadingTime
+} %}
+
+
+
+
+{{card(props)}}
+
+
+
+{% endmacro %}
+
+
+
+
+{% macro newsList(post) %}
+
+
+{% set author = post.data.authorData.name if post.data.authorData else null %}
+{% set postDate = post.date | readableDate("d LLL yyyy") %}
+{% set postReadingTime = post.data.readingTime + " min read" if post.data.readingTime else null %}
+
+
+{% set props = {
+  kicker: post.data.category | capitalize if post.data.category else "Uncategorized",
+  title: post.data.title,
+  text: post.data.description,
+  image: post.data.image if post.data.image else null,
+  imageAlt: post.data.imageAlt if post.data.imageAlt else "",
+  featured: post.data.featured if post.data.featured else false,
+  horizontal: horizontal if horizontal else false,
+  tags: post.data.tags | filterTagList | sortAlphabetically | arrayLowercase,
+  url: post.url,
+  author: author,
+  date: postDate,
+  dateFull: post.date | htmlDateString,
+  readingTime: postReadingTime
+} %}
+
+<li class="c-news-list__item{% if props.featured %} c-news-list__item--featured{% endif %}">
+  <a class="c-news-list__link" href="{{ props.url }}">
+    <div class="c-article-meta">
+      <span class="c-tag c-tag--{% if props.kicker %}primary{% else %}default{% endif %}">{{ props.kicker }}</span>
+      <span class="c-article-meta__divider">&middot;</span>
+      <time datetime="{{ props.dateFull }}">{{ props.date }}</time>
+      {% if props.featured %}
+        <span class="c-article-meta__divider">&middot;</span>
+        <span class="c-tag c-tag--secondary">Featured</span>
+      {% endif %}
+    </div>
+    <h3 class="c-news-list__title">{{ props.title }}</h3> 
+    <p class="c-news-list__excerpt">{{ props.text }}</p>
+  </a>
+</li>
+{% endmacro %}

@@ -1,0 +1,32 @@
+---
+title: Contact
+description: "Get in touch with your local Community Safety Manager or send us a message."
+kicker: Get in Touch
+lastUpdated: 2026-03-26
+layout: layouts/page-full.njk
+eleventyNavigation:
+  key: Contact Us
+  order: 4
+primaryBtn:
+  label: Find your local Community Safety Manager
+  url: /contact/#csm-finder-heading
+secondaryBtn:
+  label: Send us a message
+  url: /contact/#contact-form-heading
+---
+
+
+{# ---- CSM Finder ---- #}
+
+{% include "partials/csm-finder.njk" %}
+
+
+{# ---- Contact Form ---- #}
+
+{% include "partials/contact-form.njk" %}
+
+
+{# ---- General Contact Info ---- #}
+
+{# see _data/metadata.js file #}
+{% include "partials/contact-details.njk" %}

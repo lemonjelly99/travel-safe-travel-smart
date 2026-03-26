@@ -1,0 +1,23 @@
+{# ==========================================================================
+   PARTIAL: Breadcrumb
+   Usage:
+     {% set breadcrumbs = [
+       { label: "Home", url: "/" },
+       { label: "What We Do" }
+     ] %}
+     {% include "partials/breadcrumb.njk" %}
+   ========================================================================== #}
+
+<nav class="c-breadcrumb o-container" aria-label="Breadcrumb">
+  <ol class="c-breadcrumb__list">
+    {%- for crumb in breadcrumbs %}
+    <li class="c-breadcrumb__item">
+      {% if crumb.url and not loop.last %}
+      <a class="c-breadcrumb__link" href="{{ crumb.url }}">{{ crumb.label }}</a>
+      {% else %}
+      <span class="c-breadcrumb__current" aria-current="page">{{ crumb.label }}</span>
+      {% endif %}
+    </li>
+    {%- endfor %}
+  </ol>
+</nav>

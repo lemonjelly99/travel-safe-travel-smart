@@ -1,0 +1,104 @@
+/* ==========================================================================
+   COMPONENT: Feature Block
+   Icon + heading + description pattern used on homepage services grid.
+   ========================================================================== */
+
+.c-feature {
+  padding: var(--space-6);
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  border: var(--border-width) solid var(--color-border);
+  transition: box-shadow var(--transition-base),
+              border-color var(--transition-base);
+}
+
+.c-feature:hover {
+  box-shadow: var(--shadow-sm);
+  border-color: var(--color-yellow);
+}
+
+.c-feature__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  background: var(--color-cream);
+  color: var(--color-navy);
+  border-radius: var(--radius-md);
+  margin-block-end: var(--space-4);
+  font-size: var(--text-xl);
+}
+
+.c-feature__icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: currentColor;
+}
+
+.c-feature__title {
+  font-family: var(--font-family-heading);
+  font-size: var(--text-lg);
+  color: var(--color-navy);
+  margin-block-end: var(--space-3);
+}
+
+.c-feature__text {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-normal);
+  margin-block-end: var(--space-4);
+}
+
+.c-feature__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-navy);
+  text-decoration: none;
+}
+
+.c-feature__link::after {
+  content: "\2192"; /* → */
+  transition: transform var(--transition-fast);
+}
+
+.c-feature__link:hover::after {
+  transform: translateX(4px);
+}
+
+.c-feature__link:focus-visible {
+  outline: var(--border-width-thick) solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ---- On dark background ---- */
+.c-feature--inverse {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.c-feature--inverse:hover {
+  border-color: var(--color-yellow);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.c-feature--inverse .c-feature__icon {
+  background: rgba(232, 189, 72, 0.15);
+  color: var(--color-yellow);
+}
+
+.c-feature--inverse .c-feature__title {
+  color: var(--color-white);
+}
+
+.c-feature--inverse .c-feature__text {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.c-feature--inverse .c-feature__link {
+  color: var(--color-yellow);
+}
