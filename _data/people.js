@@ -34,7 +34,7 @@ export default [
 		area: "Sussex",
 		email: "mark.johnson@networkrail.co.uk",
 		phone: "07700 900456",
-		photo: "/assets/img/people/mark-johnson.jpg",
+		// photo: "/assets/img/people/mark-johnson.jpg",
 		bio: "Mark specialises in education outreach and has delivered safety sessions to over 200 schools across Sussex.",
 		lat: 50.83,
 		lng: -0.14,
@@ -90,7 +90,7 @@ export default [
 		area: "South East Region",
 		email: "tom.reynolds@networkrail.co.uk",
 		phone: "07700 900321",
-		photo: "/assets/img/people/tom-reynolds.jpg",
+		// photo: "/assets/img/people/tom-reynolds.jpg",
 		bio: "Tom oversees community safety strategy across the South East and coordinates multi-agency partnerships.",
 		// No lat/lng — this person won't appear on the map but will appear in the list
 	},

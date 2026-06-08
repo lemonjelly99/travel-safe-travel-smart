@@ -4,27 +4,94 @@ description: "Free rail safety resources for teachers, community leaders and par
 kicker: Downloads
 lastUpdated: 2026-03-26
 layout: layouts/page-full.njk
-eleventyNavigation:
-  key: Resources
-  order: 4
+draft: true
 ---
+
+{# eleventyNavigation:
+  key: Resources
+  order: 4 #}
+
+
+{# ---- Resources content ---- #}
+
+{% from "components/sectionHeader/macro.njk" import sectionHeader %}
+{% from "components/button/macro.njk" import button %}
 
 {# ---- Resource Categories ---- #}
 
-{% include "partials/resources-list.njk" %}
+{% from "components/card/macro.njk" import card %}
+{% from "components/sectionHeader/macro.njk" import sectionHeader %}
 
+{% if resources.length > 0 %}
+  {% for audience in resources %}
+    <section class="o-section {% if loop.index is even %}u-bg-cream{% endif %}">
+      <div class="o-container">
+        <div class="o-stack o-stack--lg">
+          {% for category in audience.categories %}
+            {% set kicker = "" %}
+            {% if loop.first %}
+              {% set kicker = "For " ~ audience.name %}
+            {% endif %}
+            {{ sectionHeader({
+              kicker: kicker,
+              title: category.name
+            }) }} 
+            <div class="o-grid o-grid--3">
+              {% for resource in category.items %}
+                {% set resourceFooter %}
+                  {% if resource.filetype and resource.filesize %}
+                    {{ resource.filetype | upper }} · {{ resource.filesize | upper }}
+                  {% elif resource.filetype %}
+                    {{ resource.filetype | upper }}
+                  {% elif resource.filesize %}
+                    {{ resource.filesize | upper }}
+                  {% else %}
+                    &nbsp;
+                  {% endif %}
+                {% endset %}
+
+                {{ card({
+                  url: resource.url or "/assets/resources/" ~ audience.slug ~ "/" ~ category.slug ~ "/" ~ resource.id ~ "." ~ resource.filetype | lower,
+                  image: resource.imageUrl or "/resources/" ~ audience.slug ~ "/" ~ category.slug ~ "/" ~ resource.id ~ ".jpg",
+                  imageAlt: "Image for " ~ resource.name,
+                  kicker: resource.kicker,
+                  title: resource.name,
+                  text: resource.description,
+                  footer: resourceFooter | safe, 
+                  tags: resource.tags
+                }) }}
+              {% endfor %}
+            </div>
+          {% endfor %}
+        </div>
+    </section>
+  {% endfor %}
+{% else %}
+<section class="o-section">
+  <div class="o-container o-container--md">
+    {{ sectionHeader({
+      title: "No resources available.",
+      description: "If you need resources tailored to your organisation or community, get in touch with your local Community Safety Manager and we'll be happy to help.",
+      isCentered: true
+    }) }}
+  </div>
+</section>
+{% endif %}
 
 {# ---- CTA ---- #}
 
-<section class="o-section">
+<section class="o-section ">
   <div class="o-container o-container--md">
-    <div class="c-section-header c-section-header--center">
-      {# <span class="c-section-header__kicker">Need something specific?</span> #}
-      <h2 class="c-section-header__title">Need something specific?</h2>
-      <p class="c-section-header__description">If you need resources tailored to your organisation or community, get in touch with your local Community Safety Manager and we'll be happy to help.</p>
-      <div class="u-mt-4 u-text-center">
-        <a class="c-btn c-btn--primary" href="/contact/">Contact us</a>
-      </div>
+    {% set sectionHeaderExtra %}
+    <div class="u-mt-4 u-text-center">
+      {{ button({ label: "Contact us", url: "contact.njk", style: "primary" }) }}
     </div>
+    {% endset %}
+    {{ sectionHeader({
+      title: "Need something specific?",
+      description: "If you need resources tailored to your organisation or community, get in touch with your local Community Safety Manager and we'll be happy to help.",
+      isCentered: true,
+      extra: sectionHeaderExtra
+    }) }}
   </div>
 </section>

@@ -27,7 +27,19 @@
 		<style>/* This is an arbitrary CSS string added to the bundle */</style>
 
 		{#- Add the contents of a file to the bundle #}
-		{# <style>{% include "css/index.css" %}</style> #}
+		<style>{% include "css/01-settings/settings.css" %}</style>
+		<style>{% include "css/02-tools/tools.css" %}</style>
+		<style>{% include "css/03-generic/generic.css" %}</style>
+		<style>{% include "css/04-elements/elements.css" %}</style>
+		<style>{% include "css/05-objects/objects.css" %}</style>
+		<style>{% include "css/05-objects/form.css" %}</style>
+
+		{# {% if useMap %} #}
+		<style>{% include "public/csm-finder/leaflet.css" %}</style>
+		<style>{% include "public/csm-finder/csm-finder.css" %}</style>
+		{# {% endif %} #}
+
+		<style>{% include "css/07-utilities/utilities.css" %}</style>
 
 		{#- Or you can add from node_modules #}
 		{# <style>{% include "node_modules/something.css" %}</style> #}
@@ -41,9 +53,10 @@
 		{#- Add the heading-anchors web component to the JavaScript bundle #}
 		<script type="module">{% include "node_modules/@zachleat/heading-anchors/heading-anchors.js" %}</script>
 
+		<script type="module">{% include "js/navigation.js" %}</script>
 
   	{# ---- Main Stylesheet ---- #}
-  	<link rel="stylesheet" href="/css/main.css">
+  	{# <link rel="stylesheet" href="/assets/css/main.css"> #}
 
 		{# ---- Google Fonts ---- #}
 		<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -53,16 +66,6 @@
 			rel="stylesheet"
 		>
 
-		{# ---- Leaflet (only on pages that use the map) ---- #}
-		{% if useMap %}
-		<link
-			rel="stylesheet"
-			href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-			integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-			crossorigin=""
-		>
-		{% endif %}
-
 		{# ---- Favicon ---- #}
 		{# <link rel="icon" href="/assets/img/favicon.ico" sizes="any"> #}
 		{# <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml"> #}
@@ -70,11 +73,13 @@
 	</head>
 	<body>
 		{# ---- Skip Link ---- #}
-  	<a class="c-skip-link" id="skip-link" href="#main">Skip to main content</a>
+		{% from "components/skipLink/macro.njk" import skipLink %}
+    {{ skipLink({href: "#main", text: "Skip to main content"}) }}
 
   	{# ---- Site Header ---- #}
-  	{% include "partials/site-header.njk" %}
-
+		{% from "components/siteHeader/macro.njk" import siteHeader %}
+    {{ siteHeader({navItems: collections.all | eleventyNavigation, page: page}) }}
+		
 		{# ---- Main Content ---- #}
 		<main id="main" tabindex="-1">
 			<heading-anchors>
@@ -83,16 +88,13 @@
 		</main>
 
 		{# ---- Site Footer ---- #}
-  	{% include "partials/site-footer.njk" %}
+		{% from "components/emergencyBanner/macro.njk" import emergencyBanner %}
+    {{ emergencyBanner() }}
+ 
+		{% from "components/siteFooter/macro.njk" import siteFooter %}
+    {{ siteFooter() }}
 
 		{# ---- Scripts ---- #}
-		{% if useMap %}
-		<script src="/js/leaflet.js"></script>
-		<script src="/js/csm-finder.js"></script>
-		{% endif %}
-
-		<script src="/js/navigation.js"></script>
-
 		{% block scripts %}{% endblock %}
 
 		<!-- This page `{{ page.url }}` was built on {% currentBuildDate %} -->

@@ -1,0 +1,41 @@
+{% from "components/card/macro.njk" import card %}
+{% from "components/articleMeta/macro.njk" import articleMeta %}
+
+{% set postUrl = params.post.url %}
+{% set category = params.post.data.category if params.post.data.category else "Uncategorized" %}
+{% set postTitle = params.post.data.title %}
+{% set excerpt = params.post.data.description %}
+{% set image = params.post.data.image if params.post.data.image else null %}
+{% set imageAlt = params.post.data.imageAlt if params.post.data.imageAlt else "" %}
+{% set featured = params.post.data.featured if params.post.data.featured else false %}
+{% set tags = params.post.data.tags | filterTagList | sortAlphabetically | arrayLowercase %}
+{% set horizontal = params.horizontal if params.horizontal else false %}
+
+
+
+{% set cardFooter %}
+{{ articleMeta({
+      date: params.post.date,
+      data: {
+        authorData: params.post.data.authorData
+      }
+    }) }}
+{% endset %}
+
+
+{% set props = {
+  url: postUrl,
+  kicker: category | capitalize,
+  title: postTitle,
+  text: excerpt,
+  image: image,
+  imageAlt: imageAlt,
+  featured: featured,
+  tags: tags,
+  footer: cardFooter | safe,
+  horizontal: horizontal
+} %}
+
+{{ card(props) }} 
+
+

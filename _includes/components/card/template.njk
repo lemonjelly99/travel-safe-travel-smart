@@ -1,0 +1,62 @@
+<style>{% include "_includes/components/card/style.css" %}</style>
+{# ==========================================================================
+   MACRO: Card
+   Renders a content card (news, resource, feature, etc.)
+
+   Usage:
+    {% from "components/card/macro.njk" import card %}
+
+     {{ card({
+       url:     "/news/my-article/",
+       kicker:  "News",
+       title:   "Article Title",
+       text:    "A brief excerpt or description.",
+       image:   "/assets/img/news/article.jpg",
+       imageAlt: "Students attending a rail safety session",
+       footer:  "15 Nov 2025",
+       featured: false,
+       horizontal: false,
+       tags: ["safety", "community"]
+     }) }}
+   ========================================================================== #}
+{% from "components/tag/macro.njk" import tag as tag_macro %}
+
+{%- set tag = "a" if params.url else "div" -%}
+{%- set classes = "c-card" -%}
+{%- if params.url %}{% set classes = classes + " c-card--link" %}{% endif -%}
+{%- if params.featured %}{% set classes = classes + " c-card--featured" %}{% endif -%}
+{%- if params.horizontal %}{% set classes = classes + " c-card--horizontal" %}{% endif -%}
+{%- if not params.image %}{% set classes = classes + " c-card--compact" %}{% endif -%}
+<{{ tag }} class="{{ classes }}"{% if params.url %} href="{{ params.url }}"{% endif %}>
+  {% if params.image %}
+  <div class="c-card__media">
+    <img src="{{ params.image }}" alt="{{ params.imageAlt | default('') }}" loading="lazy">
+  </div>
+  {% endif %}
+
+  <div class="c-card__body">
+    {% if params.kicker %}
+    <span class="c-card__kicker">{{ params.kicker }}</span>
+    {% endif %}
+
+    <h3 class="c-card__title">{{ params.title }}</h3>
+
+    {% if params.text %}
+    <p class="c-card__text">{{ params.text }}</p>
+    {% endif %}
+
+    {% if params.tags %}
+    <div class="c-card__tags">
+      {% for tag in params.tags %}
+        {{ tag_macro({text: tag | lower}) }}
+      {% endfor %}
+    </div>
+    {% endif %} 
+
+    {% if params.footer %}
+    <div class="c-card__footer">{{ params.footer }}</div>
+    {% endif %}
+  </div>
+</{{ tag }}>
+
+

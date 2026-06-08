@@ -1,0 +1,90 @@
+---js
+// <script>
+const pagination = {
+	data: "collections",
+	size: 1,
+	alias: "tag",
+	filter: ["all", "posts"],
+	// addAllPagesToCollections: true,
+};
+
+const eleventyExcludeFromCollections = true;
+
+const eleventyComputed = {
+  title: (data) => `News tagged with "${data.tag}"`,
+	permalink: function(data) {
+		// If DuplicatePermalinkOutputError occurs, check that no tag occurs
+		// with differing case, e.g. "RSS" and "rss".
+		return `/tags/${this.slugify(data.tag)}/`;
+	}
+};
+
+
+const kicker = "Tagged";
+const description = "Keep up to date with community safety activity, partnership news and events across the network.";
+const layout = "layouts/page-full.njk";
+
+const primaryBtn = { label: "View all tags", url: "tags.njk" }
+const secondaryBtn = { label: "News & Updates", url: "news.njk" }
+---
+{% from "components/sectionHeader/macro.njk" import sectionHeader %}
+{% from "components/newsCardList/macro.njk" import newsCardList %}
+{% from "components/newsList/macro.njk" import newsList %}
+{% from "components/card/macro.njk" import card %}
+{% from "components/pagination/macro.njk" import pagination as paginationMacro %}
+{% from "components/tagCloud/macro.njk" import tagCloud %}
+{% from "components/sectionHeader/macro.njk" import sectionHeader %}
+
+
+{% set posts = collections[tag] | reverse %}
+{% set allTags = collections | getKeys | filterTagList | sortAlphabetically %}
+
+
+{% if posts.length > 0 %}
+
+
+<section class="o-section">
+  <div class="o-container">
+    {{ newsCardList({posts: posts}) }}
+  </div>
+</section>
+
+
+{% else %}
+  <section class="o-section">
+    <div class="o-container o-container--md u-text-center">
+      <p class="u-color-muted">No posts tagged with "{{ tag }}" yet.</p>
+    </div>
+  </section>
+{% endif %}
+
+{# ---- Related tags ---- #}
+
+<section class="o-section o-section--sm u-bg-cream">
+  <div class="o-container">
+    {% set relatedTags = [] %}
+    {% for t in allTags %}
+      {% set type = "secondary" %}
+      {% if t == tag %}
+        {% set type = "primary" %}
+      {% endif %}
+      {% set slug  = t | slugify %}
+      {% set newTag = {
+        text: t,
+        count: collections[t] | length,
+        url: "/tags/" ~ slug ~ "/",
+        type: type
+      } %}
+      {% set relatedTags = (relatedTags.push(newTag),relatedTags) %}
+    {% endfor %}
+    {{ sectionHeader({
+      kicker: "tags",
+      title: "Related tags",
+      description: "Select a tag to see all related news and updates."
+    }) }}
+    {{ tagCloud({ tags: relatedTags }) }}
+  </div>
+</section>
+
+
+

@@ -1,0 +1,11 @@
+<style>{% include "_includes/components/tagCloud/style.css" %}</style>
+{% from "components/tag/macro.njk" import tag as tag_macro %}
+
+
+<ul class="c-tag-cloud">
+  {%- for tag in params.tags %}
+    <li>
+      {{ tag_macro({text: tag.text, type: tag.type, count: tag.count, url: tag.url}) }}
+    </li>
+  {%- endfor %}
+</ul>

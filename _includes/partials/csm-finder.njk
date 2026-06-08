@@ -16,19 +16,25 @@
 
    The JS reads CSM data from the <script id="csm-data"> tag below.
    ========================================================================== #}
+{# <style>{% include "css/06-components/csm-finder.css" %}</style> #}
+{# <style>{% include "/public/csm-finder/leaflet.css" %}</style> #}
+{# <script type="module">{% include "public/csm-finder/leaflet.js" %}</script> #}
+{# <script type="module">{% include "public/csm-finder/csm-finder.js" %}</script> #}
+{# <link rel="stylesheet" href="/assets/csm-finder/leaflet.css"> #}
+{# <link rel="stylesheet" href="/assets/csm-finder/csm-finder.css"> #}
+<script type="module" src="/assets/csm-finder/leaflet.js"></script>
+<script type="module" src="/assets/csm-finder/csm-finder.js"></script>
+{% from "components/sectionHeader/macro.njk" import sectionHeader %}
 
 <section class="o-section" aria-labelledby="csm-finder-heading">
   <div class="o-container">
 
-    <div class="c-section-header c-section-header--center">
-      <span class="c-section-header__kicker">Find Your Local</span>
-      <h2 class="c-section-header__title" id="csm-finder-heading">
-        Community Safety Manager
-      </h2>
-      <p class="c-section-header__description">
-        Our Community Safety Managers are your main point of contact for railway safety concerns, school engagement requests and partnership opportunities.
-      </p>
-    </div>
+    {{ sectionHeader({
+      kicker: "Find Your Local",
+      title: "Community Safety Manager",
+      description: "Our Community Safety Managers are your main point of contact for railway safety concerns, school engagement requests and partnership opportunities.",
+      isCentered: true
+    }) }}
 
     {# The JS component mounts here #}
     <div id="csm-finder" data-csm-finder></div>
@@ -75,7 +81,8 @@
   </div>
 </section>
 
+
 {# ---- Data payload for JS ---- #}
-<script id="csm-data" type="application/json">
+<script id="csm-data" type="application/json" eleventy:ignore>
   {{ people | dump | safe }}
 </script>

@@ -1,0 +1,38 @@
+/* ---- Emergency Banner ---- */
+.c-emergency-banner {
+	background: var(--color-error);
+	color: var(--color-white);
+	padding-block: var(--space-4);
+	/* margin-block-end: var(--space-10); */
+}
+
+.c-emergency-banner__inner {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--space-4);
+}
+
+.c-emergency-banner__icon {
+	width: 1.5rem;
+	height: 1.5rem;
+	flex-shrink: 0;
+	margin-block-start: 0.1em;
+}
+
+.c-emergency-banner a {
+	color: var(--color-white);
+	text-decoration: underline;
+	text-underline-offset: 0.15em;
+	font-weight: var(--font-weight-bold);
+}
+
+.c-emergency-banner a:hover {
+	color: var(--color-yellow);
+}
+
+.c-emergency-banner__secondary {
+	display: block;
+	margin-block-start: var(--space-2);
+	font-size: var(--text-sm);
+	opacity: 0.9;
+}

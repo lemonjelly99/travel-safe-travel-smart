@@ -288,7 +288,7 @@ Variants: `o-stack--sm`, `o-stack--lg`, `o-stack--xl`.
 **Nunjucks macro:**
 
 ```nunjucks
-{% from "macros/button.njk" import button %}
+{% from "components/button/macro.njk" import button %}
 {{ button({ label: "Get in touch", url: "/contact/", style: "primary" }) }}
 ```
 
@@ -327,7 +327,7 @@ Variants: `featured: true`, `horizontal: true`.
 ### Feature Block (`c-feature`)
 
 ```nunjucks
-{% from "macros/feature.njk" import feature %}
+{% from "components/feature/macro.njk" import feature %}
 
 {{ feature({
   icon:     "🎓",
@@ -441,9 +441,9 @@ Includes fields for name, email, phone, organisation, enquiry type (radio group)
 
 **Validation classes:**
 
-- `c-form__input--error` — red border on invalid fields
-- `c-form__error` — error message below a field
-- `c-form__banner--success` / `c-form__banner--error` — form-level feedback
+- `o-form__input--error` — red border on invalid fields
+- `o-form__error` — error message below a field
+- `o-form__banner--success` / `o-form__banner--error` — form-level feedback
 
 ---
 
@@ -458,7 +458,7 @@ layout: base.njk
 useMap: true
 ---
 
-{% from "macros/feature.njk" import feature %}
+{% from "components/feature/macro.njk" import feature %}
 {% from "macros/card.njk" import card %}
 
 {% set heroData = {

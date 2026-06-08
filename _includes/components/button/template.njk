@@ -1,0 +1,29 @@
+{# ==========================================================================
+   MACRO: Button
+   Renders a button or link styled as a button.
+
+   Usage:
+     {% from "components/button/macro.njk" import button %}
+
+     {{ button({ label: "Get in touch", url: "/contact/", style: "primary" }) }}
+     {{ button({ label: "Submit", type: "submit", style: "secondary" }) }}
+   ========================================================================== #}
+<style>{% include "_includes/components/button/style.css" %}</style>
+{%- set style = params.style | default("primary") -%}
+{%- set size  = params.size | default("") -%}
+{%- set cls   = "c-btn c-btn--" + style -%}
+{%- if size %}{% set cls = cls + " c-btn--" + size %}{% endif -%}
+{%- if params.full %}{% set cls = cls + " c-btn--full" %}{% endif -%}
+{%- if params.class %}{% set cls = cls + " " + params.class %}{% endif -%}
+
+{% if params.url %}
+<a class="{{ cls }}" href="{{ params.url }}"{% if params.external %} target="_blank" rel="noopener noreferrer"{% endif %}>
+  {% if params.icon %}{{ params.icon | safe  }} {# allow raw HTML for icons #}{% endif %}
+  {{ params.label }}
+</a>
+{% else %}
+<button class="{{ cls }}" type="{{ params.type | default('button') }}"{% if params.disabled %} disabled{% endif %}>
+  {% if params.icon %}{{ params.icon | safe  }} {# allow raw HTML for icons #}{% endif %}
+  {{ params.label }}
+</button>
+{% endif %}

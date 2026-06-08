@@ -5,23 +5,22 @@ layout: layouts/base.njk
 
 {# ---- Breadcrumb ---- #}
 
-{% set breadcrumbs = [
+{% from "components/breadcrumbs/macro.njk" import breadcrumbs %}
+{{ breadcrumbs([
   { label: "Home", url: "/" },
   { label: title }
-] %}
-{% include "partials/breadcrumb.njk" %}
+]) }}
 
 
 {# ---- Hero ---- #}
-
-{% set heroData = {
+{% from "components/hero/macro.njk" import hero %}
+{{ hero({
   kicker: kicker | default(null),
   title:  title,
   summary: description | default(null),
   compact: true,
   primaryBtn: primaryBtn | default(null),
   secondaryBtn: secondaryBtn | default(null)
-} %}
-{% include "partials/hero.njk" %}
+}) }}
 
 {{ content | safe }}

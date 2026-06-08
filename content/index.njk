@@ -1,53 +1,58 @@
----js
-const eleventyNavigation = {
-	key: "Home",
-	order: 1,
-};
-
-const numberOfLatestPostsToShow = 3;
-const layout = "layouts/base.njk";
-const description = "Travel Safe Travel Smart supports communities across the UK by promoting railway safety, preventing harm and strengthening local partnerships.";
+---
+title: Home
+description: "Travel Safe Travel Smart supports communities across the UK by promoting railway safety, preventing harm and strengthening local partnerships."
+lastUpdated: 2025-01-01
+eleventyNavigation:
+  key: Home
+  order: 1
+numberOfLatestPostsToShow: 3
+layout: layouts/base.njk
+useMap: true
 ---
 
-{% from "macros/feature.njk" import feature %}
-{% from "macros/news.njk" import newsCard %}
 
-{% set heroData = {
-  kicker: metadata.title,
+{# ---- Homepage content ---- #}
+
+
+{% from "components/feature/macro.njk" import feature %}
+{% from "components/sectionHeader/macro.njk" import sectionHeader %}
+{% from "components/button/macro.njk" import button %}
+{% from "components/hero/macro.njk" import hero %}
+{% from "components/newsCardList/macro.njk" import newsCardList %}
+
+
+{{ hero({
+   kicker: metadata.title,
   title:  metadata.description,
   summary: metadata.summary,
   primaryBtn: { label: "What We Do", url: "/what-we-do/" },
   secondaryBtn: { label: "Find Your Local Community Safety Manager", url: "#csm-finder-heading" }
-} %}
-{% include "partials/hero.njk" %}
-
-
+}) }}
 
 {# ---- What We Do (features grid) ---- #}
 
 <section class="o-section u-bg-cream">
   <div class="o-container">
-    <div class="c-section-header c-section-header--center">
-      <span class="c-section-header__kicker">Community Safety Initiatives</span>
-      <h2 class="c-section-header__title">What We Do</h2>
-      <p class="c-section-header__description">
-        Community Safety Managers work at the heart of local communities,
-        delivering practical support and coordinated safety initiatives.
-      </p>
-    </div>
+    {{ sectionHeader({
+      kicker: "Community Safety Initiatives",
+      title: "What We Do",
+      description: "Community Safety Managers work at the heart of local communities, delivering practical support and coordinated safety initiatives.",
+      isCentered: true
+    }) }}
 
     <div class="o-grid o-grid--3">
       {# see _data/whatWeDo.js #}
       {%- for item in whatWeDo %}
-      {{ feature({
-         icon: item.icon,
-         title: item.title,
-         text: item.excerpt,
-         linkUrl: "/what-we-do/#" + item.slug,
-         linkText: "Learn more"
-       }) }}
+        {{ feature({
+            icon: item.icon,
+            title: item.title,
+            text: item.excerpt,
+            linkUrl: "/what-we-do/#" + item.slug,
+            linkText: "Learn more"
+          }) }}
       {%- endfor %}
     </div>
+
   </div>
 </section>
 
@@ -58,32 +63,24 @@ const description = "Travel Safe Travel Smart supports communities across the UK
 {% include "partials/csm-finder.njk" %}
 
 
+
 {# ---- Latest News ---- #}
 
 <section class="o-section">
   <div class="o-container">
-    <div class="c-section-header">
-      <span class="c-section-header__kicker">Latest</span>
-      <h2 class="c-section-header__title">News & Updates</h2>
-      <p class="c-section-header__description">
-        Keep up to date with community safety activity across the network.
-      </p>
-    </div>
+    {{ sectionHeader({
+      kicker: "Latest",
+      title: "News & Updates",
+      description: "Keep up to date with community safety activity across the network."
+    }) }}
 
-    <div class="o-grid o-grid--3">
-      {# Loop over the 3 most recent news articles #}
-      {% set postsCount = collections.posts | length %}
-      {% set postslist = collections.posts | head(-1 * numberOfLatestPostsToShow) %}
-      {% set postslistCounter = postsCount %}
 
-      {# kicker: post.data.tags[0] | capitalize if post.data.tags else null, #}
-      {%- for post in postslist | reverse %}
-        {{ newsCard(post) }}
-      {%- endfor %} 
-    </div>
-
-    <div class="u-text-center u-mt-8">
-      <a class="c-btn c-btn--outline" href="news.njk">View all news</a>
+    {% set posts = collections.posts | reverse  %}
+    {% set postsList = posts.slice(0,3) %}
+    {{ newsCardList({posts: postsList}) }}
+    
+    <div class="u-text-center u-mt-8">      
+      {{ button({ label: "View all news", url: "news.njk", style: "outline" }) }}
     </div>
   </div>
 </section>

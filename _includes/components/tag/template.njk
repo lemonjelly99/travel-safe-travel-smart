@@ -1,0 +1,22 @@
+<style>{% include "_includes/components/tag/style.css" %}</style>
+
+{# types: default, primary, secondary, success, warning, error #}
+
+
+{%- set tag = "a" if params.url else "span" -%}
+{%- set classes = "c-tag" -%}
+
+{% if params.type %}
+  {%- set classes = classes + " c-tag--" + params.type -%}
+{% else %}
+  {%- set classes = classes + " c-tag--default" -%}
+{% endif %}
+
+{%- if params.url %}{% set classes = classes + " c-tag--link" %}{% endif -%}
+<{{ tag }} class="{{ classes }}"{% if params.url %} href="{{ params.url }}"{% endif %}>
+  {{ params.text }}
+  {% if params.count is defined %}
+    <span class="c-tag__count">{{ params.count }}</span>
+  {% endif %}
+</{{ tag }}>
+

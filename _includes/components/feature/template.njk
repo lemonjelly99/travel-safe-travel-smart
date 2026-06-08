@@ -1,0 +1,44 @@
+{# ==========================================================================
+   MACRO: Feature Block
+   Renders an icon + title + description + link block.
+
+   Usage:
+     {% from "components/feature/macro.njk" import feature %}
+
+     {{ feature({
+       icon:    "🎓",
+       title:   "Education & Outreach",
+       text:    "We deliver engaging, age-appropriate rail safety sessions...",
+       linkUrl: "/what-we-do/#education-and-outreach",
+       linkText: "Learn more",
+       inverse: false
+     }) }}
+   ========================================================================== #}
+<style>{% include "_includes/components/feature/style.css" %}</style>
+{% from "components/button/macro.njk" import button %}
+<div class="c-feature{% if params.inverse %} c-feature--inverse{% endif %}">
+  {% if params.icon %}
+  <div class="c-feature__icon" aria-hidden="true">
+    {% if params.iconSvg %}
+      {{ params.iconSvg | safe }}
+    {% else %}
+      {{ params.icon }}
+    {% endif %}
+  </div>
+  {% endif %}
+
+  <h3 class="c-feature__title">{{ params.title }}</h3>
+
+  {% if params.text %}
+  <p class="c-feature__text">{{ params.text }}</p>
+  {% endif %}
+
+  {% if params.linkUrl %}
+  <a class="c-feature__link" href="{{ params.linkUrl }}">
+    {{ params.linkText | default("Read more") }}
+  </a>
+  {% endif %}
+
+  {% if params.button %} {{ button({ label: params.button.label, url: params.button.url, style: "primary" }) }} {% endif %}
+</div>
+

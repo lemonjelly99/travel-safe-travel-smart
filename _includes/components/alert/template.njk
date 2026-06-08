@@ -1,0 +1,24 @@
+{# ==========================================================================
+   PARTIAL: Breadcrumb
+   Usage:
+     {% set breadcrumbs = [
+       { label: "Home", url: "/" },
+       { label: "What We Do" }
+     ] %}
+     {% include "partials/breadcrumb.njk" %}
+   ========================================================================== #}
+<style>{% include "_includes/components/alert/style.css" %}</style>
+{%- set type = params.type | default("info") -%}
+<div class="c-alert c-alert--{{ type }}" role="{% if type == 'error' %}alert{% else %}status{% endif %}">
+  <div class="c-alert__body">
+    {% if params.title %}
+    <div class="c-alert__title">{{ params.title }}</div>
+    {% endif %}
+    <div>{{ params.message }}</div>
+  </div>
+  {% if params.dismissible %}
+  <button class="c-alert__dismiss" aria-label="Dismiss this message" onclick="this.closest('.c-alert').remove()">
+    &times;
+  </button>
+  {% endif %}
+</div>

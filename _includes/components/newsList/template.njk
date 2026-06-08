@@ -1,0 +1,13 @@
+<style>{% include "_includes/components/newsList/style.css" %}</style>
+{% from "components/newsListItem/macro.njk" import newsListItem %}
+<ul class="c-news-list">
+  {% set posts = params.posts | reverse  %}
+  {%- for post in posts %}
+    {{ newsListItem({
+      title: post.data.title,
+      description: post.data.description,
+      date: post.date,
+      category: post.data.category
+    }) }}
+  {%- endfor %}
+</ul>

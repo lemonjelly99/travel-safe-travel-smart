@@ -1,0 +1,59 @@
+<style>{% include "_includes/components/articleMeta/style.css" %}</style>
+{% from "components/tag/macro.njk" import tag %}
+
+{% set category = params.data.category | capitalize if params.data.category else "Uncategorized" %}
+{% set categoryTagType = "primary" if params.data.category else "default" %}
+{% set postDate = params.date | readableDate("d LLL yyyy") %}
+{% set postDateFull = params.date | htmlDateString %}
+{% set featured = params.data.featured if params.data.featured else false %}
+{% set authorName = params.data.authorData.name if params.data.authorData else null %}
+{% set authorId = params.data.authorData.id if params.data.authorData else null %}
+{% set authorPhoto = params.data.authorData.photo if params.data.authorData else null %}
+{% set postReadingTime = params.data.readingTime + " min read" if params.data.readingTime else null %} 
+
+{# {% set postTitle = params.data.title %}
+{% set excerpt = params.data.description %}
+{% set image = params.data.image if params.data.image else null %}
+{% set imageAlt = params.data.imageAlt if params.data.imageAlt else "" %}
+{% set tags = params.data.tags | filterTagList | sortAlphabetically | arrayLowercase %}
+{% set postUrl = params.url %} #}
+
+
+{# ---- Hero ---- #}
+{# {{postDateFull}} #}
+
+<div class="c-article-meta">
+  {% if authorName and authorId %}
+    <span class="c-article-meta__author" href="/team/{{ authorId }}/">
+      {% if authorPhoto %}
+        <img eleventy:ignore class="c-article-meta__author-avatar" src="{{ authorPhoto }}" alt="" loading="lazy">
+      {% else %}
+        <span
+          class="c-article-meta__avatar c-article-meta__avatar--placeholder"
+          style="width:1.75rem;height:1.75rem;font-size:0.625rem;display:inline-flex"
+          aria-hidden="true"
+        >{{ authorName | truncate(2, true, "") | upper }}</span>
+      {% endif %}
+      {{ authorName }}
+    </span>
+    <span class="c-article-meta__divider">&middot;</span>
+  {% endif %}
+      
+  {% if params.data.category %}
+    {{ tag({text: category, type: categoryTagType}) }}
+    <span class="c-article-meta__divider">&middot;</span>
+  {% endif %}
+  {% if postDate %}
+  <time datetime="{{ postDateFull }}">{{ postDate }}</time>
+  {% endif %}
+  {% if featured %}
+    <span class="c-article-meta__divider">&middot;</span>
+    {{ tag({text: "Featured", type: "secondary"}) }}
+  {% endif %}
+
+   {% if postReadingTime %}
+    <span>{{ postReadingTime }}</span>
+    {# <span class="c-article-meta__divider">&middot;</span> #}
+  {% endif %}
+</div>
+

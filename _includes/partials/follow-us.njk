@@ -1,0 +1,33 @@
+
+{% from "components/button/macro.njk" import button %}
+
+{# ---- Follow & Subscribe ---- #}
+
+<section class="o-section u-bg-navy">
+  <div class="o-container o-container--md u-text-center">
+    <h2 style="color: var(--color-white); margin-block-end: var(--space-3);">Stay up to date</h2>
+    <p style="color: rgba(255,255,255,0.75); max-width: 48ch; margin-inline: auto; margin-block-end: var(--space-8);">
+      Follow us on social media or subscribe to our RSS feed so you never miss an update.
+    </p>
+
+    <div class="o-cluster" style="justify-content: center;">
+
+      {% set twitterIcon %}
+        <svg style="width:1.2em;height:1.2em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      {% endset %}
+
+      {% set facebookIcon %}
+        <svg style="width:1.2em;height:1.2em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 1.09.044 1.613.115V8.3c-.497-.058-.903-.058-1.28-.058-1.818 0-2.52.688-2.52 2.476v1.327h3.587l-.467 3.667h-3.12v7.98z"/></svg>
+      {% endset %}
+
+      {% set rssIcon %}
+        <svg style="width:1.2em;height:1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
+      {% endset %}
+
+      {{ button({ label: "X (Twitter)", url: "https://twitter.com/NetworkRail", style: "primary", icon: twitterIcon, external: true }) }}
+      {{ button({ label: "Facebook", url: "https://www.facebook.com/NetworkRail", style: "primary", icon: facebookIcon, external: true }) }}
+      {{ button({ label: "RSS Feed", url: "/feed/feed.xml", style: "outline-inverse", icon: rssIcon, external: true }) }}
+
+    </div>
+  </div>
+</section>

@@ -7,7 +7,10 @@
 		"build": "npx @11ty/eleventy",
 		"build-nocolor": "cross-env NODE_DISABLE_COLORS=1 npx @11ty/eleventy",
 		"build-ghpages": "npx @11ty/eleventy",
+		"dev": "npx @11ty/eleventy --serve --watch",
+		"dev-debug": "cross-env DEBUG=Eleventy* npx @11ty/eleventy --serve --watch",
 		"start": "npx @11ty/eleventy --serve --quiet",
+		"start-debug": "cross-env DEBUG=Eleventy* npx @11ty/eleventy --serve --quiet",
 		"start-ghpages": "npx @11ty/eleventy --serve --quiet",
 		"debug": "cross-env DEBUG=Eleventy* npx @11ty/eleventy",
 		"debugstart": "cross-env DEBUG=Eleventy* npx @11ty/eleventy --serve --quiet",
@@ -18,9 +21,9 @@
 		"url": "git://github.com/lemonjelly99/travel-safe-travel-smart.git"
 	},
 	"author": {
-		"name": "Your Name",
-		"email": "your-email@example.com",
-		"url": "https://your-website.com"
+		"name": "Nick Turner",
+		"email": "nick.turner@networkrail.co.uk",
+		"url": "https://travelsafetravelsmart.co.uk/"
 	},
 	"license": "MIT",
 	"engines": {
@@ -33,7 +36,7 @@
 	"bugs": {
 		"url": "https://github.com/lemonjelly99/travel-safe-travel-smart/issues"
 	},
-	"homepage": "https://github.com/lemonjelly99/travel-safe-travel-smart#readme",
+	"homepage": "https://travelsafetravelsmart.co.uk/",
 	"devDependencies": {
 		"@11ty/eleventy": "^3.1.2",
 		"@11ty/eleventy-img": "^6.0.4",

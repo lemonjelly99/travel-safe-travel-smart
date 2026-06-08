@@ -1,0 +1,45 @@
+
+{# ==========================================================================
+   PARTIAL: Pagination
+   For Eleventy's built-in pagination.
+
+   Usage (in a paginated template):
+     {% include "partials/pagination.njk" %}
+
+   Expects `pagination` object from Eleventy with:
+     pagination.href.previous, pagination.href.next,
+     pagination.pages, pagination.pageNumber
+   ========================================================================== #}
+<style>{% include "_includes/components/pagination/style.css" %}</style>  
+{% if params.pages.length > 1 %}
+<nav class="c-pagination" aria-label="Pagination">
+  {# Previous #}
+  {% if params.href.previous %}
+  <a class="c-pagination__link" href="{{ params.href.previous }}" aria-label="Previous page">
+    &laquo; Prev
+  </a>
+  {% endif %}
+
+  {# Page numbers #}
+  {%- for pageEntry in params.pages %}
+  {% set pageIndex = loop.index0 %}
+  {% set pageUrl = params.hrefs[pageIndex] %}
+  {% if pageIndex == params.pageNumber %}
+  <span class="c-pagination__current" aria-current="page" aria-label="Page {{ pageIndex + 1 }}, current page">
+    {{ pageIndex + 1 }}
+  </span>
+  {% else %}
+  <a class="c-pagination__link" href="{{ pageUrl }}" aria-label="Page {{ pageIndex + 1 }}">
+    {{ pageIndex + 1 }}
+  </a>
+  {% endif %}
+  {%- endfor %}
+
+  {# Next #}
+  {% if params.href.next %}
+  <a class="c-pagination__link" href="{{ params.href.next }}" aria-label="Next page">
+    Next &raquo;
+  </a>
+  {% endif %}
+</nav>
+{% endif %}

@@ -1,0 +1,9 @@
+<style>{% include "_includes/components/sectionHeader/style.css" %}</style>
+
+
+<div class="c-section-header {% if params.isCentered %}c-section-header--center{% endif %}">
+  {% if params.kicker %}<span class="c-section-header__kicker">{{ params.kicker }}</span>{% endif %}
+  {%- if params.title %}<h2 class="c-section-header__title">{{ params.title }}</h2>{% endif %}
+  {%- if params.description %}<p class="c-section-header__description">{{ params.description }}</p>{% endif %}
+  {{ params.extra | safe }}
+</div>

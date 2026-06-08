@@ -1,0 +1,39 @@
+<style>{% include "_includes/components/hero/style.css" %}</style>
+{% from "components/button/macro.njk" import button %}
+{# ==========================================================================
+   PARTIAL: Hero
+   Usage:
+     {% set params = {
+       kicker: "Travel Safe Travel Smart",
+       title:  "Keeping Communities Safe Across the UK Rail Network",
+       summary: "Working together to reduce risk...",
+       compact: false,
+       primaryBtn: { label: "What We Do", url: "/what-we-do/" },
+       secondaryBtn: { label: "Contact Us", url: "/contact/" }
+     } %}
+     {% include "partials/hero.njk" %}
+   ========================================================================== #} 
+<section class="c-hero{% if params.compact %} c-hero--compact{% endif %}">
+  <div class="o-container c-hero__inner">
+    {% if params.kicker %}
+    <span class="c-hero__kicker">{{ params.kicker }}</span>
+    {% endif %}
+
+    <h1 class="c-hero__title">{{ params.title | uppercaseFirst }}</h1>
+
+    {% if params.summary %}
+    <p class="c-hero__summary">{{ params.summary }}</p>
+    {% endif %}
+
+    {% if params.primaryBtn or params.secondaryBtn %}
+    <div class="c-hero__actions">
+      {% if params.primaryBtn %}
+        {{ button({ label: params.primaryBtn.label, url: params.primaryBtn.url, style: "primary" }) }}
+      {% endif %}
+      {% if params.secondaryBtn %}
+        {{ button({ label: params.secondaryBtn.label, url: params.secondaryBtn.url, style: "outline-inverse" }) }}
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+</section>

@@ -5,6 +5,8 @@ eleventyExcludeFromCollections: true
 layout: layouts/base.njk
 ---
 
+{% from "components/button/macro.njk" import button %}
+
 <section class="o-cover" style="background: var(--color-cream); text-align: center;">
   <div class="o-cover__inner o-container o-container--sm">
 
@@ -22,8 +24,8 @@ layout: layouts/base.njk
     </p>
 
     <div class="o-cluster" style="justify-content: center;">
-      <a class="c-btn c-btn--primary" href="index.njk">Go to homepage</a>
-      <a class="c-btn c-btn--outline" href="/contact/">Contact us</a>
+      {{ button({ label: "Go to homepage", url: "index.njk", style: "primary" }) }}
+      {{ button({ label: "Contact us", url: "contact.njk", style: "outline" }) }}
     </div>
 
     {# ---- Helpful Links ---- #}

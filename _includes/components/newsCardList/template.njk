@@ -1,0 +1,23 @@
+<style>{% include "_includes/components/newsListItem/style.css" %}</style>
+{% from "components/newsCard/macro.njk" import newsCard %}
+
+
+{% set loopPosts = params.posts %}
+{% if params.featured %}
+  {% set featured = loopPosts[0] %}
+  {% set postCount = loopPosts | length %}
+  {% set loopPosts = loopPosts.slice(1, postCount) %}
+{% endif %}
+
+
+{% if params.featured %}
+  {# ---- Featured Article ---- #}
+  {{ newsCard({ post: featured, horizontal: true }) }}
+{% endif %}
+
+{# ---- Next 3 or 6 ---- #}
+<div class="o-grid o-grid--3 {% if params.featured %} u-mt-6 {% endif %}">
+  {%- for post in loopPosts %}
+      {{ newsCard({ post: post }) }}
+  {%- endfor %} 
+</div>

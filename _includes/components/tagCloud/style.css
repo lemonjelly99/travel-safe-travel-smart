@@ -1,0 +1,17 @@
+/* ==========================================================================
+   COMPONENT: Tag cloud
+   ========================================================================== */
+
+/* ---- Tag cloud (larger interactive tags) ---- */
+.c-tag-cloud {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-3);
+	list-style: none;
+	padding: 0;
+}
+
+.c-tag-cloud .c-tag {
+	padding: var(--space-2) var(--space-4);
+	font-size: var(--text-sm);
+}
